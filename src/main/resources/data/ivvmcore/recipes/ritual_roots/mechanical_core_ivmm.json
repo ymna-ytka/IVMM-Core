@@ -1,0 +1,31 @@
+{
+  "type": "rootsclassic:ritual",
+  "effect": "rootsclassic:crafting",
+  "level": 0,
+  "color": "#92d62b",
+  "ingredients": [
+    {
+      "item": "gtceu:lead_plate"
+    },
+    {
+      "item": "gtceu:iron_plate"
+    },
+    {
+      "item": "embers:caminite_bricks"
+    }
+  ],
+  "incenses": [
+    {
+      "item": "embers:ancient_motive_core"
+    },
+    {
+      "item": "embers:ancient_motive_core"
+    },
+    {
+      "item": "gtceu:iron_screw"
+    }
+  ],
+  "result": {
+    "item": "embers:mechanical_core"
+  }
+}

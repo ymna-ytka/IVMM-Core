@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "p": {
+      "tag": "minecraft:planks"
+    },
+    "s": {
+      "tag": "forge:rods/wooden"
+    },
+    "t": {
+      "item": "gtceu:sticky_resin"
+    },
+    "a": {
+      "tag": "forge:tools/saws"
+    }
+  },
+  "pattern": [
+    "sts",
+    "pap"
+  ],
+  "result": {
+    "count": 4,
+    "item": "tconstruct:pattern"
+  },
+  "show_notification": true
+}

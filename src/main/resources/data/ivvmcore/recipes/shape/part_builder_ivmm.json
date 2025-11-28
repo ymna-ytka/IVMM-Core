@@ -1,0 +1,31 @@
+{
+  "type": "mantle:crafting_shaped_retextured",
+  "category": "misc",
+  "key": {
+    "p": {
+      "item": "tconstruct:pattern"
+    },
+    "w": {
+      "tag": "tconstruct:planklike"
+    },
+    "s": {
+      "tag": "forge:tools/saws"
+    },
+    "h": {
+      "tag": "forge:tools/hammers"
+    }
+  },
+  "match_all": true,
+  "pattern": [
+    "php",
+    "wsw",
+    "w w"
+  ],
+  "result": {
+    "item": "tconstruct:part_builder"
+  },
+  "show_notification": true,
+  "texture": {
+    "tag": "tconstruct:planklike"
+  }
+}

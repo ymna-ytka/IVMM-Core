@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "s": {
+      "tag": "ivmmcore:strong_rope"
+    },
+    "t": {
+      "tag": "forge:rods/wooden"
+    },
+    "b": {
+      "item": "embers:caminite_brick"
+    }
+  },
+  "pattern": [
+    "sbs",
+    " t",
+    " t "
+  ],
+  "result": {
+    "count": 1,
+    "item": "kubejs:primitive_caminite_pickaxe"
+  },
+  "show_notification": true
+}

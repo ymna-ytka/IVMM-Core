@@ -1,0 +1,16 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "ivmmcore:worn_leather"
+    }
+  ],
+  "result": [
+    {
+      "item": "ivmmcore:cleansed_leather"
+    }
+  ],
+  "tool": {
+    "tag": "forge:tools/knives"
+  }
+}
