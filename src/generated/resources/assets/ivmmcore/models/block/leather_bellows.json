@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "ivmmcore:block/sided_casing/leather_bellows_top",
+    "side": "ivmmcore:block/sided_casing/leather_bellows_side",
+    "top": "ivmmcore:block/sided_casing/leather_bellows_top"
+  }
+}

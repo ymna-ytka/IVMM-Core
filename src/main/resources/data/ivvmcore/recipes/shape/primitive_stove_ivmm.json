@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "T": {
+      "item": "minecraft:terracotta"
+    },
+    "S": {
+      "item": "minecraft:stone"
+    }
+  },
+  "pattern": [
+    "T T",
+    "TTT",
+    "SSS"
+  ],
+  "result": {
+    "count": 1,
+    "item": "mbd2:primitive_stove"
+  },
+  "show_notification": true
+}
