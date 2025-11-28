@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "ivmmcore:block/casings/solid/bloomery_bricks"
-  }
-}

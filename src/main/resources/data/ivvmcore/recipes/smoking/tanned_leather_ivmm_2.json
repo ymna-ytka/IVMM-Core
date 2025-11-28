@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smoking",
-  "ingredient": {
-    "item": "ivmmcore:cleansed_leather"
-  },
-  "result": "ivmmcore:tanned_leather",
-  "experience": 0.1,
-  "cookingtime": 400
-}
