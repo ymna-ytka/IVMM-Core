@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "tconstruct:seared_brick"
+    },
+    "G": {
+      "item": "ceramicbucket:ceramic_bucket"
+    }
+  },
+  "pattern": [
+    "BGB",
+    "BBB"
+  ],
+  "result": {
+    "item": "tconstruct:seared_melter"
+  },
+  "show_notification": true
+}

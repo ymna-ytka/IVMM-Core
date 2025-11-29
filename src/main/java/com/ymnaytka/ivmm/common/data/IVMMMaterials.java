@@ -7,6 +7,7 @@ import com.ymnaytka.ivmm.common.data.materials.MIMaterials;
 public class IVMMMaterials {
 
     public static Material Ember;
+    public static Material Caminite;
 
     public static void init() {
         MIMaterials.init();

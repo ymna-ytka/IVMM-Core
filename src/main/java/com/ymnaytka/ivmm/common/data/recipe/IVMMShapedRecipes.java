@@ -49,25 +49,5 @@ public class IVMMShapedRecipes {
         VanillaRecipeHelper.addShapedRecipe(provider, "furnace_shape", new ItemStack(Items.FURNACE), "CCC", "FOF",
                 "CCC", 'C', RegistryManager.CAMINITE_BRICKS.get(), 'F', Items.FLINT, 'O',
                 ChemicalHelper.get(rawOre, Coal));
-        VanillaRecipeHelper.addShapedRecipe(provider, "caminite_hammer_shape",
-                new ItemStack(IVMMItems.PRIMITIVE_CAMINITE_HAMMER),
-                "BS ", "BBT", "BS",
-                'B', RegistryManager.CAMINITE_BRICK, 'S', IVMMItems.STRONG_ROPE, 'T', Items.STICK);
-        VanillaRecipeHelper.addShapedRecipe(provider, "caminite_knife_shape",
-                new ItemStack(IVMMItems.PRIMITIVE_CAMINITE_KNIFE),
-                "fBh", "STS",
-                'B', RegistryManager.CAMINITE_BRICK, 'S', IVMMItems.STRONG_ROPE, 'T', Items.STICK);
-        VanillaRecipeHelper.addShapedRecipe(provider, "caminite_file_shape",
-                new ItemStack(IVMMItems.PRIMITIVE_CAMINITE_FILE),
-                " B ", "SBS", " T ",
-                'B', RegistryManager.CAMINITE_BRICK, 'S', IVMMItems.STRONG_ROPE, 'T', Items.STICK);
-        VanillaRecipeHelper.addShapedRecipe(provider, "caminite_saw_shape",
-                new ItemStack(IVMMItems.PRIMITIVE_CAMINITE_SAW),
-                "BBS", "fhT",
-                'B', RegistryManager.CAMINITE_BRICK, 'S', IVMMItems.STRONG_ROPE, 'T', Items.STICK);
-        VanillaRecipeHelper.addShapedRecipe(provider, "caminite_mortar_shape",
-                new ItemStack(IVMMItems.PRIMITIVE_CAMINITE_MORTAR),
-                "SBS", "OBO", "OOO",
-                'B', RegistryManager.CAMINITE_BRICK, 'S', IVMMItems.STRONG_ROPE, 'T', Items.STICK, 'O', Blocks.STONE);
     }
 }

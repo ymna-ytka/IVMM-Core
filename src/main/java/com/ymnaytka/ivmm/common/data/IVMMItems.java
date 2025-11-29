@@ -54,50 +54,10 @@ public class IVMMItems {
             .defaultModel()
             .register();
 
-    public static final ItemEntry<ComponentItem> PRIMITIVE_CAMINITE_HAMMER = REGISTRATE
-            .item("primitive_caminite_hammer", ComponentItem::create)
-            .lang("Caminite Hammer")
-            .properties(p -> p.stacksTo(1).defaultDurability(75))
-            .tag()
-            .defaultModel()
-            .register();
-
-    public static final ItemEntry<ComponentItem> PRIMITIVE_CAMINITE_KNIFE = REGISTRATE
-            .item("primitive_caminite_knife", ComponentItem::create)
-            .lang("Caminite Knife")
-            .properties(p -> p.stacksTo(1).defaultDurability(75))
-            .tag()
-            .defaultModel()
-            .register();
-
-    public static final ItemEntry<ComponentItem> PRIMITIVE_CAMINITE_SAW = REGISTRATE
-            .item("primitive_caminite_saw", ComponentItem::create)
-            .lang("Caminite Saw")
-            .properties(p -> p.stacksTo(1).defaultDurability(75))
-            .tag()
-            .defaultModel()
-            .register();
-
     public static final ItemEntry<ComponentItem> COMPRESSED_CAMINITE_CLAY = REGISTRATE
             .item("compressed_caminite_clay", ComponentItem::create)
             .lang("Compressed Caminite Clay")
             .properties(p -> p.stacksTo(64))
-            .tag()
-            .defaultModel()
-            .register();
-
-    public static final ItemEntry<ComponentItem> PRIMITIVE_CAMINITE_FILE = REGISTRATE
-            .item("primitive_caminite_file", ComponentItem::create)
-            .lang("Primitive Caminite File")
-            .properties(p -> p.stacksTo(1).defaultDurability(75))
-            .tag()
-            .defaultModel()
-            .register();
-
-    public static final ItemEntry<ComponentItem> PRIMITIVE_CAMINITE_MORTAR = REGISTRATE
-            .item("primitive_caminite_mortar", ComponentItem::create)
-            .lang("Primitive Caminite Mortar")
-            .properties(p -> p.stacksTo(1).defaultDurability(32))
             .tag()
             .defaultModel()
             .register();
