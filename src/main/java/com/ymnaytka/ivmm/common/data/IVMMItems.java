@@ -96,14 +96,6 @@ public class IVMMItems {
             .defaultModel()
             .register();
 
-    public static final ItemEntry<ComponentItem> BLOOM = REGISTRATE
-            .item("bloom", ComponentItem::create)
-            .lang("Bloom (Iron)")
-            .properties(p -> p.stacksTo(64))
-            .tag()
-            .defaultModel()
-            .register();
-
     public static final ItemEntry<ComponentItem> DRIED_LEATHER = REGISTRATE
             .item("dried_leather", ComponentItem::create)
             .lang("Dried Leather")
@@ -177,6 +169,62 @@ public class IVMMItems {
     public static final ItemEntry<ComponentItem> SEARED_STONE_DUST = REGISTRATE
             .item("seared_stone_dust", ComponentItem::create)
             .lang("Seared Stone dust")
+            .properties(p -> p.stacksTo(64))
+            .tag()
+            .defaultModel()
+            .register();
+
+    public static final ItemEntry<ComponentItem> BLOOMERY_BRICK = REGISTRATE
+            .item("bloomery_brick", ComponentItem::create)
+            .lang("Bloomery Brick")
+            .properties(p -> p.stacksTo(64))
+            .tag()
+            .defaultModel()
+            .register();
+
+    public static final ItemEntry<ComponentItem> HOT_IRON_INGOT = REGISTRATE
+            .item("hot_iron_ingot", ComponentItem::create)
+            .lang("Hot Iron Ingot")
+            .properties(p -> p.stacksTo(64))
+            .tag()
+            .defaultModel()
+            .register();
+
+    public static final ItemEntry<ComponentItem> HOT_COPPER_INGOT = REGISTRATE
+            .item("hot_copper_ingot", ComponentItem::create)
+            .lang("Hot Copper Ingot")
+            .properties(p -> p.stacksTo(64))
+            .tag()
+            .defaultModel()
+            .register();
+
+    public static final ItemEntry<ComponentItem> HOT_TIN_INGOT = REGISTRATE
+            .item("hot_tin_ingot", ComponentItem::create)
+            .lang("Hot Tin Ingot")
+            .properties(p -> p.stacksTo(64))
+            .tag()
+            .defaultModel()
+            .register();
+
+    public static final ItemEntry<ComponentItem> HOT_ZINC_INGOT = REGISTRATE
+            .item("hot_zinc_ingot", ComponentItem::create)
+            .lang("Hot Zinc Ingot")
+            .properties(p -> p.stacksTo(64))
+            .tag()
+            .defaultModel()
+            .register();
+
+    public static final ItemEntry<ComponentItem> HOT_BRASS_INGOT = REGISTRATE
+            .item("hot_brass_ingot", ComponentItem::create)
+            .lang("Hot Brass Ingot")
+            .properties(p -> p.stacksTo(64))
+            .tag()
+            .defaultModel()
+            .register();
+
+    public static final ItemEntry<ComponentItem> HOT_BRONZE_INGOT = REGISTRATE
+            .item("hot_bronze_ingot", ComponentItem::create)
+            .lang("Hot Bronze Ingot")
             .properties(p -> p.stacksTo(64))
             .tag()
             .defaultModel()

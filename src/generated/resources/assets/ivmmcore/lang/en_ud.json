@@ -1,7 +1,8 @@
 {
   "block.ivmmcore.bloomery_bricks": "sʞɔıɹᗺ ʎɹǝɯooןᗺ",
+  "block.ivmmcore.caminite_glass": "ssɐן⅁ ǝʇıuıɯɐƆ",
   "block.ivmmcore.leather_bellows": "sʍoןןǝᗺ ɹǝɥʇɐǝꞀ",
-  "item.ivmmcore.bloom": ")uoɹI( ɯooןᗺ",
+  "item.ivmmcore.bloomery_brick": "ʞɔıɹᗺ ʎɹǝɯooןᗺ",
   "item.ivmmcore.chunk_leather": "ɹǝɥʇɐǝꞀ ʞunɥƆ",
   "item.ivmmcore.cleansed_leather": "ɹǝɥʇɐǝꞀ pǝsuɐǝןƆ",
   "item.ivmmcore.compressed_caminite_clay": "ʎɐןƆ ǝʇıuıɯɐƆ pǝssǝɹdɯoƆ",
@@ -22,5 +23,7 @@
   "item.ivmmcore.wreath": "ɥʇɐǝɹM",
   "itemGroup.ivmmcore.creative_tab": "ǝɹoƆWWΛI",
   "ivmmcore.stage_processed.1_stage": "ᄅ/Ɩ :ǝbɐʇS",
-  "ivmmcore.stage_processed.2_stage": "ᄅ/ᄅ :ǝbɐʇS"
+  "ivmmcore.stage_processed.2_stage": "ᄅ/ᄅ :ǝbɐʇS",
+  "material.ivmmcore.caminite": "ǝʇıuıɯɐƆ",
+  "material.ivmmcore.ember": "ɹǝqɯƎ"
 }

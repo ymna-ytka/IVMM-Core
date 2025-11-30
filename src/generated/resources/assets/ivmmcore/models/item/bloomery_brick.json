@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "ivmmcore:item/bloom"
+    "layer0": "ivmmcore:item/bloomery_brick"
   }
 }

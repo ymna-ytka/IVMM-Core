@@ -49,5 +49,7 @@ public class IVMMShapedRecipes {
         VanillaRecipeHelper.addShapedRecipe(provider, "furnace_shape", new ItemStack(Items.FURNACE), "CCC", "FOF",
                 "CCC", 'C', RegistryManager.CAMINITE_BRICKS.get(), 'F', Items.FLINT, 'O',
                 ChemicalHelper.get(rawOre, Coal));
+        VanillaRecipeHelper.addShapedRecipe(provider, "chunk_leather_shape", new ItemStack(IVMMItems.CHUNK_LEATHER, 3),
+                " L ", " k ", 'L', Items.LEATHER);
     }
 }

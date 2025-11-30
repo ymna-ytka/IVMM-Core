@@ -6,10 +6,10 @@ import com.ymnaytka.ivmm.common.data.materials.MIMaterials;
 
 public class IVMMMaterials {
 
+    public static void register() {
+        MIMaterials.register();
+    }
+
     public static Material Ember;
     public static Material Caminite;
-
-    public static void init() {
-        MIMaterials.init();
-    }
 }

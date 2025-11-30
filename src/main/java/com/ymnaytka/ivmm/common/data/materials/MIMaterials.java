@@ -12,7 +12,7 @@ import static com.gregtechceu.gtceu.api.data.chemical.material.info.MaterialIcon
 
 public class MIMaterials {
 
-    public static void init() {
+    public static void register() {
         IVMMMaterials.Caminite = new Material.Builder(IVMMCore.id("caminite"))
                 .ingot()
                 .color(0xc2a85e).secondaryColor(0xb09856).iconSet(ROUGH)

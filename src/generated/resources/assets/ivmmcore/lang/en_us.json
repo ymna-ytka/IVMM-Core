@@ -1,7 +1,8 @@
 {
   "block.ivmmcore.bloomery_bricks": "Bloomery Bricks",
+  "block.ivmmcore.caminite_glass": "Caminite Glass",
   "block.ivmmcore.leather_bellows": "Leather Bellows",
-  "item.ivmmcore.bloom": "Bloom (Iron)",
+  "item.ivmmcore.bloomery_brick": "Bloomery Brick",
   "item.ivmmcore.chunk_leather": "Chunk Leather",
   "item.ivmmcore.cleansed_leather": "Cleansed Leather",
   "item.ivmmcore.compressed_caminite_clay": "Compressed Caminite Clay",
@@ -22,5 +23,7 @@
   "item.ivmmcore.wreath": "Wreath",
   "itemGroup.ivmmcore.creative_tab": "IVMMCore",
   "ivmmcore.stage_processed.1_stage": "Stage: 1/2",
-  "ivmmcore.stage_processed.2_stage": "Stage: 2/2"
+  "ivmmcore.stage_processed.2_stage": "Stage: 2/2",
+  "material.ivmmcore.caminite": "Caminite",
+  "material.ivmmcore.ember": "Ember"
 }

@@ -2,6 +2,7 @@ package com.ymnaytka.ivmm;
 
 import com.gregtechceu.gtceu.api.GTCEuAPI;
 import com.gregtechceu.gtceu.api.data.chemical.material.event.MaterialEvent;
+import com.gregtechceu.gtceu.api.data.chemical.material.event.MaterialRegistryEvent;
 import com.gregtechceu.gtceu.api.data.chemical.material.registry.MaterialRegistry;
 import com.gregtechceu.gtceu.api.machine.MachineDefinition;
 import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
@@ -45,8 +46,13 @@ public class IVMMCore {
     }
 
     @SubscribeEvent
+    public void registerMaterialRegistry(MaterialRegistryEvent event) {
+        MATERIAL_REGISTRY = GTCEuAPI.materialManager.createRegistry(IVMMCore.MOD_ID);
+    }
+
+    @SubscribeEvent
     public void registerMaterials(MaterialEvent event) {
-        IVMMMaterials.init();
+        IVMMMaterials.register();
     }
 
     private void registerRecipeTypes(GTCEuAPI.RegisterEvent<ResourceLocation, GTRecipeType> event) {
