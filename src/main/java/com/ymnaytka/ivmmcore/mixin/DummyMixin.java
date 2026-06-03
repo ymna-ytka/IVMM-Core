@@ -1,4 +1,4 @@
-package com.example.examplemod.mixin;
+package com.ymnaytka.ivmmcore.mixin;
 
 import net.minecraft.world.level.levelgen.WorldgenRandom;
 
