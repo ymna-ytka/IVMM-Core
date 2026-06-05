@@ -9,6 +9,9 @@ import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
 import com.gregtechceu.gtceu.api.registry.registrate.GTRegistrate;
 import com.gregtechceu.gtceu.api.sound.SoundEntry;
 
+import com.ymnaytka.ivmmcore.api.registries.IVMMCoreRegistration;
+import com.ymnaytka.ivmmcore.common.data.IVMMBlocks;
+import com.ymnaytka.ivmmcore.common.data.IVMMCoreDatagen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
@@ -28,7 +31,6 @@ public class IVMMCore {
 
     public static final String MOD_ID = "ivmmcore";
     public static final Logger LOGGER = LogManager.getLogger();
-    public static GTRegistrate IVMMCORE_REGISTRATE = GTRegistrate.create(IVMMCore.MOD_ID);
 
     public IVMMCore() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -48,8 +50,6 @@ public class IVMMCore {
         // If we want to use annotations to register event listeners,
         // we need to register our object like this!
         MinecraftForge.EVENT_BUS.register(this);
-
-        IVMMCORE_REGISTRATE.registerRegistrate();
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
@@ -63,6 +63,11 @@ public class IVMMCore {
         LOGGER.info("Hey, we're on Minecraft version {}!", Minecraft.getInstance().getLaunchedVersion());
     }
 
+    public static void init() {
+        IVMMCoreRegistration.REGISTRATE.registerRegistrate();
+        IVMMCoreDatagen.init();
+        IVMMBlocks.init();
+    }
     /**
      * Create a ResourceLocation in the format "modid:path"
      *
