@@ -1,17 +1,20 @@
 package com.ymnaytka.ivmmcore;
 
+import com.ymnaytka.ivmmcore.api.registries.IVMMCoreRegistration;
+import com.ymnaytka.ivmmcore.common.data.IVMMBlocks;
+import com.ymnaytka.ivmmcore.common.data.IVMMCoreCreativeModeTab;
+import com.ymnaytka.ivmmcore.common.data.IVMMCoreDatagen;
+import com.ymnaytka.ivmmcore.common.data.IVMMCoreRecipeTypes;
+import com.ymnaytka.ivmmcore.common.data.machine.multiblock.IVMMCoreMultiblock_A;
+
 import com.gregtechceu.gtceu.api.GTCEuAPI;
 import com.gregtechceu.gtceu.api.data.chemical.material.event.MaterialEvent;
 import com.gregtechceu.gtceu.api.data.chemical.material.event.MaterialRegistryEvent;
 import com.gregtechceu.gtceu.api.data.chemical.material.event.PostMaterialEvent;
 import com.gregtechceu.gtceu.api.machine.MachineDefinition;
 import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
-import com.gregtechceu.gtceu.api.registry.registrate.GTRegistrate;
 import com.gregtechceu.gtceu.api.sound.SoundEntry;
 
-import com.ymnaytka.ivmmcore.api.registries.IVMMCoreRegistration;
-import com.ymnaytka.ivmmcore.common.data.IVMMBlocks;
-import com.ymnaytka.ivmmcore.common.data.IVMMCoreDatagen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
@@ -33,6 +36,7 @@ public class IVMMCore {
     public static final Logger LOGGER = LogManager.getLogger();
 
     public IVMMCore() {
+        init();
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         modEventBus.addListener(this::commonSetup);
@@ -67,7 +71,9 @@ public class IVMMCore {
         IVMMCoreRegistration.REGISTRATE.registerRegistrate();
         IVMMCoreDatagen.init();
         IVMMBlocks.init();
+        IVMMCoreCreativeModeTab.init();
     }
+
     /**
      * Create a ResourceLocation in the format "modid:path"
      *
@@ -115,7 +121,7 @@ public class IVMMCore {
      * @param event
      */
     private void registerRecipeTypes(GTCEuAPI.RegisterEvent<ResourceLocation, GTRecipeType> event) {
-        // CustomRecipeTypes.init();
+        IVMMCoreRecipeTypes.init();
     }
 
     /**
@@ -125,7 +131,7 @@ public class IVMMCore {
      * @param event
      */
     private void registerMachines(GTCEuAPI.RegisterEvent<ResourceLocation, MachineDefinition> event) {
-        // CustomMachines.init();
+        IVMMCoreMultiblock_A.init();
     }
 
     /**

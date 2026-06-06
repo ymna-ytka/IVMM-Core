@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "ivmmcore:block/machine/earth_pile_igniter"
+    }
+  }
+}

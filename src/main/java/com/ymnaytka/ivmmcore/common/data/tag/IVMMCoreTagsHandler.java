@@ -6,13 +6,12 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
 
 import com.tterrag.registrate.providers.RegistrateTagsProvider;
+
 public class IVMMCoreTagsHandler {
 
-    public static void initItem(RegistrateTagsProvider<Item> provider) {
-    }
+    public static void initItem(RegistrateTagsProvider<Item> provider) {}
 
-    public static void initBlock(RegistrateTagsProvider<Block> provider) {
-    }
+    public static void initBlock(RegistrateTagsProvider<Block> provider) {}
 
     public static void initFluid(RegistrateTagsProvider<Fluid> provider) {}
 

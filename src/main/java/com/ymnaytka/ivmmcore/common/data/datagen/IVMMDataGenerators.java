@@ -1,7 +1,9 @@
 package com.ymnaytka.ivmmcore.common.data.datagen;
 
-import com.gregtechceu.gtceu.api.registry.registrate.SoundEntryBuilder;
 import com.ymnaytka.ivmmcore.IVMMCore;
+
+import com.gregtechceu.gtceu.api.registry.registrate.SoundEntryBuilder;
+
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -11,6 +13,7 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class IVMMDataGenerators {
+
     @SubscribeEvent
     public static void gatherData(GatherDataEvent event) {
         DataGenerator generator = event.getGenerator();

@@ -1,0 +1,402 @@
+package com.ymnaytka.ivmmcore.common.machine.multiblock.primitive;
+
+import com.ymnaytka.ivmmcore.common.data.IVMMBlocks;
+
+import com.gregtechceu.gtceu.api.GTValues;
+import com.gregtechceu.gtceu.api.capability.IWorkable;
+import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
+import com.gregtechceu.gtceu.api.machine.feature.IInteractedMachine;
+import com.gregtechceu.gtceu.api.machine.multiblock.WorkableMultiblockMachine;
+import com.gregtechceu.gtceu.api.machine.trait.RecipeLogic;
+import com.gregtechceu.gtceu.api.pattern.BlockPattern;
+import com.gregtechceu.gtceu.api.pattern.FactoryBlockPattern;
+import com.gregtechceu.gtceu.api.pattern.Predicates;
+import com.gregtechceu.gtceu.api.pattern.TraceabilityPredicate;
+import com.gregtechceu.gtceu.common.data.GTBlocks;
+import com.gregtechceu.gtceu.data.recipe.CustomTags;
+
+import com.lowdragmc.lowdraglib.syncdata.annotation.Persisted;
+import com.lowdragmc.lowdraglib.syncdata.field.ManagedFieldHolder;
+import com.lowdragmc.lowdraglib.utils.BlockInfo;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderSet;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+
+import it.unimi.dsi.fastutil.longs.Long2BooleanMap;
+import it.unimi.dsi.fastutil.longs.Long2BooleanOpenHashMap;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
+
+import java.util.*;
+
+import static com.gregtechceu.gtceu.api.pattern.util.RelativeDirection.*;
+
+public class EarthCharcoalPileIgniterMachine extends WorkableMultiblockMachine
+                                             implements IWorkable, IInteractedMachine {
+
+    private static final int MIN_RADIUS = 1;
+    private static final int MIN_DEPTH = 2;
+    private static final int MAX_HEIGHT = 5;
+    private final Collection<BlockPos> logPos = new ObjectOpenHashSet<>();
+
+    @Persisted
+    private int lDist = 0;
+    @Persisted
+    private int rDist = 0;
+    @Persisted
+    private int bDist = 0;
+    @Persisted
+    private int fDist = 0;
+    @Persisted
+    private int hDist = 0;
+
+    private boolean hasAir = false;
+
+    public EarthCharcoalPileIgniterMachine(IMachineBlockEntity holder) {
+        super(holder);
+    }
+
+    @Override
+    protected RecipeLogic createRecipeLogic(Object... args) {
+        return new CharcoalRecipeLogic(this);
+    }
+
+    @Override
+    public ManagedFieldHolder getFieldHolder() {
+        return MANAGED_FIELD_HOLDER;
+    }
+
+    @Override
+    public void onStructureFormed() {
+        super.onStructureFormed();
+        hasAir = false;
+        logPos.clear();
+        if (getMultiblockState().getMatchContext().containsKey("logPos")) {
+            Long2BooleanMap logPositions = getMultiblockState().getMatchContext().get("logPos");
+            for (var entry : logPositions.long2BooleanEntrySet()) {
+                if (entry.getBooleanValue()) {
+                    logPos.add(BlockPos.of(entry.getLongKey()));
+                } else {
+                    hasAir = true;
+                }
+            }
+        }
+        this.getRecipeLogic().setDuration(Math.max(1, (int) Math.sqrt(logPos.size() * 240_000)));
+    }
+
+    @Override
+    public CharcoalRecipeLogic getRecipeLogic() {
+        return (CharcoalRecipeLogic) super.getRecipeLogic();
+    }
+
+    @Override
+    public boolean isActive() {
+        return getRecipeLogic().isWorking();
+    }
+
+    @Override
+    public boolean isWorkingEnabled() {
+        return true;
+    }
+
+    @Override
+    public void setWorkingEnabled(boolean isWorkingAllowed) {}
+
+    @Override
+    public BlockPattern getPattern() {
+        updateDimensions();
+
+        if (lDist < MIN_RADIUS) lDist = MIN_RADIUS;
+        if (rDist < MIN_RADIUS) rDist = MIN_RADIUS;
+        if (fDist < MIN_RADIUS) fDist = MIN_RADIUS;
+        if (bDist < MIN_RADIUS) bDist = MIN_RADIUS;
+        if (hDist < MIN_DEPTH) hDist = MIN_DEPTH;
+
+        if (this.getFrontFacing().getAxis() == Direction.Axis.X) {
+            int tmp = lDist;
+            lDist = rDist;
+            rDist = tmp;
+        }
+
+        StringBuilder[] floorLayer = new StringBuilder[fDist + bDist + 1];
+        List<StringBuilder[]> wallLayers = new ArrayList<>();
+        StringBuilder[] ceilingLayer = new StringBuilder[fDist + bDist + 1];
+
+        for (int i = 0; i < floorLayer.length; i++) {
+            floorLayer[i] = new StringBuilder(lDist + rDist + 1);
+            ceilingLayer[i] = new StringBuilder(lDist + rDist + 1);
+        }
+
+        for (int i = 0; i < hDist - 1; i++) {
+            wallLayers.add(new StringBuilder[fDist + bDist + 1]);
+            for (int j = 0; j < fDist + bDist + 1; j++) {
+                var s = new StringBuilder(lDist + rDist + 3);
+                wallLayers.get(i)[j] = s;
+            }
+        }
+
+        for (int i = 0; i < lDist + rDist + 1; i++) {
+            for (int j = 0; j < fDist + bDist + 1; j++) {
+                if (i == 0 || i == lDist + rDist || j == 0 || j == fDist + bDist) {
+                    floorLayer[j].append('A');
+                    for (int k = 0; k < hDist - 1; k++) {
+                        if ((i == 0 || i == lDist + rDist) && (j == 0 || j == fDist + bDist)) {
+                            wallLayers.get(k)[j].append('A');
+                        } else {
+                            wallLayers.get(k)[j].append('W');
+                        }
+                    }
+                    ceilingLayer[j].append('A');
+                } else {
+                    floorLayer[j].append('B');
+                    for (int k = 0; k < hDist - 1; k++) {
+                        wallLayers.get(k)[j].append('L');
+                    }
+                    if (i == lDist && j == fDist) {
+                        ceilingLayer[j].append('S');
+                    } else {
+                        ceilingLayer[j].append('W');
+                    }
+                }
+            }
+        }
+
+        String[] f = new String[bDist + fDist + 1];
+        for (int i = 0; i < floorLayer.length; i++) {
+            f[i] = floorLayer[i].toString();
+        }
+        String[] m = new String[bDist + fDist + 1];
+        for (int i = 0; i < wallLayers.get(0).length; i++) {
+            m[i] = wallLayers.get(0)[i].toString();
+        }
+        String[] c = new String[bDist + fDist + 1];
+        for (int i = 0; i < ceilingLayer.length; i++) {
+            c[i] = ceilingLayer[i].toString();
+        }
+
+        return FactoryBlockPattern.start(LEFT, FRONT, UP)
+                .aisle(f)
+                .aisle(m).setRepeatable(wallLayers.size())
+                .aisle(c)
+                .where('S', Predicates.controller(Predicates.blocks(this.getDefinition().get())))
+                .where('B', Predicates.blocks(IVMMBlocks.TACKY_BRICKS.get()))
+                .where('W', Predicates.blockTag(CustomTags.CHARCOAL_PILE_IGNITER_WALLS))
+                .where('L', logPredicate())
+                .where('A', Predicates.any())
+                .build();
+    }
+
+    protected static TraceabilityPredicate logPredicate() {
+        return new TraceabilityPredicate(multiblockState -> {
+            BlockState state = multiblockState.getBlockState();
+            long pos = multiblockState.getPos().asLong();
+            boolean log = state.is(BlockTags.LOGS_THAT_BURN);
+            if (log || state.isAir()) {
+                multiblockState.getMatchContext().getOrCreate("logPos", Long2BooleanOpenHashMap::new).put(pos, log);
+                return true;
+            }
+            return false;
+        }, () -> BuiltInRegistries.BLOCK.getTag(BlockTags.LOGS_THAT_BURN)
+                .stream()
+                .flatMap(HolderSet.Named::stream)
+                .map(Holder::value)
+                .map(BlockInfo::fromBlock)
+                .toArray(BlockInfo[]::new));
+    }
+
+    public void updateDimensions() {
+        Level level = getLevel();
+        if (level == null) return;
+        Direction front = getFrontFacing();
+        Direction back = front.getOpposite();
+        Direction up = getUpwardsFacing();
+
+        // Визначаємо ліво/право вручну
+        Direction left, right;
+        if (front.getAxis() == Direction.Axis.X) {
+            left = up == Direction.UP ? Direction.NORTH : Direction.DOWN;
+            right = left.getOpposite();
+        } else if (front.getAxis() == Direction.Axis.Z) {
+            left = up == Direction.UP ? Direction.WEST : Direction.DOWN;
+            right = left.getOpposite();
+        } else {
+            left = Direction.WEST;
+            right = Direction.EAST;
+        }
+
+        BlockPos down = getPos().relative(Direction.DOWN);
+
+        BlockPos.MutableBlockPos lPos = down.mutable();
+        BlockPos.MutableBlockPos rPos = down.mutable();
+        BlockPos.MutableBlockPos fPos = down.mutable();
+        BlockPos.MutableBlockPos bPos = down.mutable();
+        BlockPos.MutableBlockPos hPos = getPos().mutable();
+
+        int lDist = 0;
+        int rDist = 0;
+        int bDist = 0;
+        int fDist = 0;
+        int hDist = 0;
+
+        for (int i = 1; i <= MAX_HEIGHT; i++) {
+            if (lDist != 0 && rDist != 0 && hDist != 0) break;
+            if (lDist == 0 && isBlockWall(level, lPos, left)) lDist = i;
+            if (rDist == 0 && isBlockWall(level, rPos, right)) rDist = i;
+            if (bDist == 0 && isBlockWall(level, bPos, back)) bDist = i;
+            if (fDist == 0 && isBlockWall(level, fPos, front)) fDist = i;
+            if (hDist == 0 && isBlockFloor(level, hPos)) hDist = i;
+        }
+
+        if (Math.abs(lDist - rDist) > 1 || Math.abs(bDist - fDist) > 1) {
+            return;
+        }
+
+        if (lDist < MIN_RADIUS || rDist < MIN_RADIUS || fDist < MIN_RADIUS || bDist < MIN_RADIUS || hDist < MIN_DEPTH) {
+            return;
+        }
+
+        this.lDist = lDist;
+        this.rDist = rDist;
+        this.fDist = fDist;
+        this.bDist = bDist;
+        this.hDist = hDist;
+
+        if (!isRemote()) {
+            scheduleRenderUpdate();
+        }
+    }
+
+    private static boolean isBlockWall(Level level, BlockPos.MutableBlockPos pos, Direction direction) {
+        return level.getBlockState(pos.move(direction)).is(CustomTags.CHARCOAL_PILE_IGNITER_WALLS);
+    }
+
+    private static boolean isBlockFloor(Level level, BlockPos.MutableBlockPos pos) {
+        return level.getBlockState(pos.move(Direction.DOWN)).is(Blocks.BRICKS);
+    }
+
+    @Override
+    @OnlyIn(Dist.CLIENT)
+    public void clientTick() {
+        super.clientTick();
+        if (isActive()) {
+            Level level = getLevel();
+            if (level == null) return;
+
+            var pos = this.getPos();
+            var facing = Direction.UP;
+            float xPos = facing.getStepX() * 0.76F + pos.getX() + 0.25F + GTValues.RNG.nextFloat() / 2.0F;
+            float yPos = facing.getStepY() * 0.76F + pos.getY() + 0.25F;
+            float zPos = facing.getStepZ() * 0.76F + pos.getZ() + 0.25F + GTValues.RNG.nextFloat() / 2.0F;
+
+            float ySpd = facing.getStepY() * 0.1F + 0.01F * GTValues.RNG.nextFloat();
+            float horSpd = 0.03F * GTValues.RNG.nextFloat();
+            float horSpd2 = 0.03F * GTValues.RNG.nextFloat();
+
+            if (GTValues.RNG.nextFloat() < 0.1F) {
+                level.playLocalSound(xPos, yPos, zPos, SoundEvents.CAMPFIRE_CRACKLE, SoundSource.BLOCKS, 1.0F,
+                        1.0F, false);
+            }
+            for (float xi = xPos - 1; xi <= xPos + 1; xi++) {
+                for (float zi = zPos - 1; zi <= zPos + 1; zi++) {
+                    if (GTValues.RNG.nextFloat() < .9F)
+                        continue;
+                    level.addParticle(ParticleTypes.LARGE_SMOKE, xi, yPos, zi, horSpd, ySpd, horSpd2);
+                }
+            }
+        }
+    }
+
+    private void convertLogBlocks() {
+        Level level = getLevel();
+        if (level == null) return;
+
+        for (BlockPos pos : logPos) {
+            level.setBlockAndUpdate(pos, GTBlocks.BRITTLE_CHARCOAL.getDefaultState());
+        }
+        logPos.clear();
+    }
+
+    @Override
+    public InteractionResult onUse(BlockState state, Level level, BlockPos pos, Player player,
+                                   InteractionHand hand, BlockHitResult hit) {
+        ItemStack stack = player.getItemInHand(hand);
+
+        if (!stack.is(CustomTags.TOOLS_IGNITER)) {
+            return InteractionResult.PASS;
+        }
+
+        if (level.isClientSide && !isActive()) {
+            return InteractionResult.SUCCESS;
+        } else if (!isActive()) {
+            boolean shouldActivate = false;
+
+            // Спрощена логіка без LighterBehavior
+            if (stack.isDamageableItem()) {
+                stack.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(hand));
+                shouldActivate = true;
+            } else if (!stack.isEmpty()) {
+                stack.shrink(1);
+                shouldActivate = true;
+            }
+
+            if (shouldActivate) {
+                getRecipeLogic().setStatus(RecipeLogic.Status.WORKING);
+
+                level.playSound(null, pos,
+                        stack.is(Items.FIRE_CHARGE) ? SoundEvents.FIRECHARGE_USE : SoundEvents.FLINTANDSTEEL_USE,
+                        SoundSource.BLOCKS, 1.0f, 1.0f);
+                return InteractionResult.CONSUME;
+            }
+        }
+        return InteractionResult.PASS;
+    }
+
+    public static class CharcoalRecipeLogic extends RecipeLogic {
+
+        public CharcoalRecipeLogic(EarthCharcoalPileIgniterMachine machine) {
+            super(machine);
+        }
+
+        @Override
+        public EarthCharcoalPileIgniterMachine getMachine() {
+            return (EarthCharcoalPileIgniterMachine) super.getMachine();
+        }
+
+        @Override
+        public void serverTick() {
+            super.serverTick();
+            if (isWorking() && duration > 0) {
+                if (++progress >= duration) {
+                    progress = 0;
+                    duration = 0;
+                    getMachine().convertLogBlocks();
+                    setStatus(Status.IDLE);
+                }
+            }
+        }
+
+        public void setDuration(int max) {
+            this.duration = max;
+        }
+    }
+
+    public static final ManagedFieldHolder MANAGED_FIELD_HOLDER = new ManagedFieldHolder(
+            EarthCharcoalPileIgniterMachine.class, WorkableMultiblockMachine.MANAGED_FIELD_HOLDER);
+}
