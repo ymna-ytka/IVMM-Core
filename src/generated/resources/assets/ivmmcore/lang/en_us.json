@@ -2,5 +2,6 @@
   "block.ivmmcore.earth_pile_igniter": "Earth Pile Igniter",
   "block.ivmmcore.primitive_earth_furnace": "Primitive Earth Furnace",
   "block.ivmmcore.tacky_bricks": "Tacky Bricks",
-  "itemGroup.ivmmcore.creative_tab": "IVMM Core"
+  "itemGroup.ivmmcore.creative_tab": "IVMM Core",
+  "material.ivmmcore.black_copper_oxide": "Copper(II) Oxide"
 }

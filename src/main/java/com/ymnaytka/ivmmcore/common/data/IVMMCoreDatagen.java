@@ -1,6 +1,7 @@
 package com.ymnaytka.ivmmcore.common.data;
 
 import com.ymnaytka.ivmmcore.api.registries.IVMMCoreRegistration;
+import com.ymnaytka.ivmmcore.common.data.datagen.IVMMCoreMaterialsLang;
 import com.ymnaytka.ivmmcore.common.data.lang.IVMMCoreLangHandler;
 import com.ymnaytka.ivmmcore.common.data.tag.IVMMCoreTagsHandler;
 
@@ -14,5 +15,6 @@ public class IVMMCoreDatagen {
         IVMMCoreRegistration.REGISTRATE.addDataGenerator(ProviderType.FLUID_TAGS, IVMMCoreTagsHandler::initFluid);
         IVMMCoreRegistration.REGISTRATE.addDataGenerator(ProviderType.ENTITY_TAGS, IVMMCoreTagsHandler::initEntity);
         IVMMCoreRegistration.REGISTRATE.addDataGenerator(ProviderType.LANG, IVMMCoreLangHandler::init);
+        IVMMCoreRegistration.REGISTRATE.addDataGenerator(ProviderType.LANG, IVMMCoreMaterialsLang::init);
     }
 }
