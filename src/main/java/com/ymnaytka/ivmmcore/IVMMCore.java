@@ -18,6 +18,7 @@ import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
 import com.gregtechceu.gtceu.api.recipe.condition.RecipeConditionType;
 import com.gregtechceu.gtceu.api.sound.SoundEntry;
 
+import com.ymnaytka.ivmmcore.common.data.worldgen.IVMMCoreWorldgen;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -49,6 +50,7 @@ public class IVMMCore {
         IVMMCoreDatagen.init();
         IVMMBlocks.init();
         IVMMCoreCreativeModeTab.init();
+        IVMMCoreWorldgen.init();
     }
 
     public static ResourceLocation id(String path) {

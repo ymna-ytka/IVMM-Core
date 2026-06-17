@@ -4,13 +4,16 @@ import com.ymnaytka.ivmmcore.IVMMCore;
 
 import com.gregtechceu.gtceu.api.data.chemical.material.Material;
 import com.gregtechceu.gtceu.api.data.chemical.material.info.MaterialIconSet;
+import net.minecraft.world.item.Items;
 
 import static com.gregtechceu.gtceu.api.data.chemical.material.info.MaterialFlags.*;
+import static com.gregtechceu.gtceu.api.data.tag.TagPrefix.*;
 
 public class IVMMCoreMaterials {
 
     public static Material BlackCopperOxide;
     public static Material Sand;
+    public static Material Azurite;
 
     public static void register() {
         BlackCopperOxide = new Material.Builder(IVMMCore.id("black_copper_oxide"))
@@ -24,6 +27,13 @@ public class IVMMCoreMaterials {
                 .color(0xC2B280).iconSet(MaterialIconSet.SAND)
                 .flags(NO_SMELTING, NO_SMASHING)
                 .langValue("Sand")
+                .buildAndRegister();
+        Azurite = new Material.Builder(IVMMCore.id("azurite"))
+                .ore()
+                .color(0x284bcc).secondaryColor(0x172263).iconSet(MaterialIconSet.BRIGHT)
+                .formula("Cu₃(CO₃)₂(OH)₂")
+                .flags(DISABLE_DECOMPOSITION)
+                .langValue("Azurite")
                 .buildAndRegister();
     }
 
