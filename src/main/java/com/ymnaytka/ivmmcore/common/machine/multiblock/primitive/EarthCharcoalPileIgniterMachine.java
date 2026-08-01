@@ -4,18 +4,20 @@ import com.ymnaytka.ivmmcore.common.data.IVMMBlocks;
 
 import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.capability.IWorkable;
+import com.gregtechceu.gtceu.api.item.ComponentItem;
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
-import com.gregtechceu.gtceu.api.machine.feature.IInteractedMachine;
 import com.gregtechceu.gtceu.api.machine.multiblock.WorkableMultiblockMachine;
 import com.gregtechceu.gtceu.api.machine.trait.RecipeLogic;
 import com.gregtechceu.gtceu.api.pattern.BlockPattern;
 import com.gregtechceu.gtceu.api.pattern.FactoryBlockPattern;
 import com.gregtechceu.gtceu.api.pattern.Predicates;
 import com.gregtechceu.gtceu.api.pattern.TraceabilityPredicate;
+import com.gregtechceu.gtceu.api.pattern.util.RelativeDirection;
 import com.gregtechceu.gtceu.common.data.GTBlocks;
+import com.gregtechceu.gtceu.common.item.tool.behavior.LighterBehavior;
 import com.gregtechceu.gtceu.data.recipe.CustomTags;
 
-import com.lowdragmc.lowdraglib.syncdata.annotation.Persisted;
+import com.lowdragmc.lowdraglib.syncdata.annotation.DescSynced;
 import com.lowdragmc.lowdraglib.syncdata.field.ManagedFieldHolder;
 import com.lowdragmc.lowdraglib.utils.BlockInfo;
 
@@ -34,7 +36,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.api.distmarker.Dist;
@@ -43,28 +44,33 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import it.unimi.dsi.fastutil.longs.Long2BooleanMap;
 import it.unimi.dsi.fastutil.longs.Long2BooleanOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
 import static com.gregtechceu.gtceu.api.pattern.util.RelativeDirection.*;
 
-public class EarthCharcoalPileIgniterMachine extends WorkableMultiblockMachine
-                                             implements IWorkable, IInteractedMachine {
+public class EarthCharcoalPileIgniterMachine extends WorkableMultiblockMachine implements IWorkable {
+
+    protected static final ManagedFieldHolder MANAGED_FIELD_HOLDER = new ManagedFieldHolder(
+            EarthCharcoalPileIgniterMachine.class,
+            WorkableMultiblockMachine.MANAGED_FIELD_HOLDER);
 
     private static final int MIN_RADIUS = 1;
     private static final int MIN_DEPTH = 2;
     private static final int MAX_HEIGHT = 5;
+
     private final Collection<BlockPos> logPos = new ObjectOpenHashSet<>();
 
-    @Persisted
+    @DescSynced
     private int lDist = 0;
-    @Persisted
+    @DescSynced
     private int rDist = 0;
-    @Persisted
+    @DescSynced
     private int bDist = 0;
-    @Persisted
+    @DescSynced
     private int fDist = 0;
-    @Persisted
+    @DescSynced
     private int hDist = 0;
 
     private boolean hasAir = false;
@@ -74,20 +80,9 @@ public class EarthCharcoalPileIgniterMachine extends WorkableMultiblockMachine
     }
 
     @Override
-    protected RecipeLogic createRecipeLogic(Object... args) {
-        return new CharcoalRecipeLogic(this);
-    }
-
-    @Override
-    public ManagedFieldHolder getFieldHolder() {
-        return MANAGED_FIELD_HOLDER;
-    }
-
-    @Override
     public void onStructureFormed() {
         super.onStructureFormed();
         hasAir = false;
-        logPos.clear();
         if (getMultiblockState().getMatchContext().containsKey("logPos")) {
             Long2BooleanMap logPositions = getMultiblockState().getMatchContext().get("logPos");
             for (var entry : logPositions.long2BooleanEntrySet()) {
@@ -102,13 +97,23 @@ public class EarthCharcoalPileIgniterMachine extends WorkableMultiblockMachine
     }
 
     @Override
-    public CharcoalRecipeLogic getRecipeLogic() {
-        return (CharcoalRecipeLogic) super.getRecipeLogic();
+    protected @NotNull EarthCharcoalRecipeLogic createRecipeLogic(Object @NotNull... args) {
+        return new EarthCharcoalRecipeLogic(this);
+    }
+
+    @Override
+    public @NotNull EarthCharcoalRecipeLogic getRecipeLogic() {
+        return (EarthCharcoalRecipeLogic) super.getRecipeLogic();
+    }
+
+    @Override
+    public @NotNull ManagedFieldHolder getFieldHolder() {
+        return MANAGED_FIELD_HOLDER;
     }
 
     @Override
     public boolean isActive() {
-        return getRecipeLogic().isWorking();
+        return recipeLogic.isWorking();
     }
 
     @Override
@@ -154,25 +159,25 @@ public class EarthCharcoalPileIgniterMachine extends WorkableMultiblockMachine
 
         for (int i = 0; i < lDist + rDist + 1; i++) {
             for (int j = 0; j < fDist + bDist + 1; j++) {
-                if (i == 0 || i == lDist + rDist || j == 0 || j == fDist + bDist) {
-                    floorLayer[j].append('A');
+                if (i == 0 || i == lDist + rDist || j == 0 || j == fDist + bDist) { // все края
+                    floorLayer[j].append('A'); // край пола
                     for (int k = 0; k < hDist - 1; k++) {
                         if ((i == 0 || i == lDist + rDist) && (j == 0 || j == fDist + bDist)) {
                             wallLayers.get(k)[j].append('A');
                         } else {
-                            wallLayers.get(k)[j].append('W');
+                            wallLayers.get(k)[j].append('W'); // стены
                         }
                     }
-                    ceilingLayer[j].append('A');
-                } else {
+                    ceilingLayer[j].append('A'); // край потолка
+                } else { // не края
                     floorLayer[j].append('B');
                     for (int k = 0; k < hDist - 1; k++) {
-                        wallLayers.get(k)[j].append('L');
+                        wallLayers.get(k)[j].append('L'); // бревно или воздух
                     }
-                    if (i == lDist && j == fDist) {
-                        ceilingLayer[j].append('S');
+                    if (i == lDist && j == fDist) { // самый центр
+                        ceilingLayer[j].append('S'); // контроллер
                     } else {
-                        ceilingLayer[j].append('W');
+                        ceilingLayer[j].append('W'); // верх
                     }
                 }
             }
@@ -196,7 +201,7 @@ public class EarthCharcoalPileIgniterMachine extends WorkableMultiblockMachine
                 .aisle(m).setRepeatable(wallLayers.size())
                 .aisle(c)
                 .where('S', Predicates.controller(Predicates.blocks(this.getDefinition().get())))
-                .where('B', Predicates.blocks(IVMMBlocks.TACKY_BRICKS.get()))
+                .where('B', Predicates.blocks(IVMMBlocks.TACKY_BRICKS.get())) // <-- ivmmcore:tacky_bricks
                 .where('W', Predicates.blockTag(CustomTags.CHARCOAL_PILE_IGNITER_WALLS))
                 .where('L', logPredicate())
                 .where('A', Predicates.any())
@@ -213,6 +218,7 @@ public class EarthCharcoalPileIgniterMachine extends WorkableMultiblockMachine
                 return true;
             }
             return false;
+            // скопировано из PredicateBlockTag, чтобы превью брёвен отображалось корректно
         }, () -> BuiltInRegistries.BLOCK.getTag(BlockTags.LOGS_THAT_BURN)
                 .stream()
                 .flatMap(HolderSet.Named::stream)
@@ -226,20 +232,8 @@ public class EarthCharcoalPileIgniterMachine extends WorkableMultiblockMachine
         if (level == null) return;
         Direction front = getFrontFacing();
         Direction back = front.getOpposite();
-        Direction up = getUpwardsFacing();
-
-        // Визначаємо ліво/право вручну
-        Direction left, right;
-        if (front.getAxis() == Direction.Axis.X) {
-            left = up == Direction.UP ? Direction.NORTH : Direction.DOWN;
-            right = left.getOpposite();
-        } else if (front.getAxis() == Direction.Axis.Z) {
-            left = up == Direction.UP ? Direction.WEST : Direction.DOWN;
-            right = left.getOpposite();
-        } else {
-            left = Direction.WEST;
-            right = Direction.EAST;
-        }
+        Direction left = RelativeDirection.LEFT.getRelativeFacing(front, getUpwardsFacing(), false);
+        Direction right = RelativeDirection.RIGHT.getRelativeFacing(front, getUpwardsFacing(), false);
 
         BlockPos down = getPos().relative(Direction.DOWN);
 
@@ -265,10 +259,13 @@ public class EarthCharcoalPileIgniterMachine extends WorkableMultiblockMachine
         }
 
         if (Math.abs(lDist - rDist) > 1 || Math.abs(bDist - fDist) > 1) {
+            this.isFormed = false;
             return;
         }
 
-        if (lDist < MIN_RADIUS || rDist < MIN_RADIUS || fDist < MIN_RADIUS || bDist < MIN_RADIUS || hDist < MIN_DEPTH) {
+        if (lDist < MIN_RADIUS || rDist < MIN_RADIUS || fDist < MIN_RADIUS || bDist < MIN_RADIUS ||
+                hDist < MIN_DEPTH) {
+            this.isFormed = false;
             return;
         }
 
@@ -277,10 +274,6 @@ public class EarthCharcoalPileIgniterMachine extends WorkableMultiblockMachine
         this.fDist = fDist;
         this.bDist = bDist;
         this.hDist = hDist;
-
-        if (!isRemote()) {
-            scheduleRenderUpdate();
-        }
     }
 
     private static boolean isBlockWall(Level level, BlockPos.MutableBlockPos pos, Direction direction) {
@@ -288,7 +281,7 @@ public class EarthCharcoalPileIgniterMachine extends WorkableMultiblockMachine
     }
 
     private static boolean isBlockFloor(Level level, BlockPos.MutableBlockPos pos) {
-        return level.getBlockState(pos.move(Direction.DOWN)).is(Blocks.BRICKS);
+        return level.getBlockState(pos.move(Direction.DOWN)).is(IVMMBlocks.TACKY_BRICKS.get());
     }
 
     @Override
@@ -296,9 +289,6 @@ public class EarthCharcoalPileIgniterMachine extends WorkableMultiblockMachine
     public void clientTick() {
         super.clientTick();
         if (isActive()) {
-            Level level = getLevel();
-            if (level == null) return;
-
             var pos = this.getPos();
             var facing = Direction.UP;
             float xPos = facing.getStepX() * 0.76F + pos.getX() + 0.25F + GTValues.RNG.nextFloat() / 2.0F;
@@ -310,14 +300,14 @@ public class EarthCharcoalPileIgniterMachine extends WorkableMultiblockMachine
             float horSpd2 = 0.03F * GTValues.RNG.nextFloat();
 
             if (GTValues.RNG.nextFloat() < 0.1F) {
-                level.playLocalSound(xPos, yPos, zPos, SoundEvents.CAMPFIRE_CRACKLE, SoundSource.BLOCKS, 1.0F,
+                getLevel().playLocalSound(xPos, yPos, zPos, SoundEvents.CAMPFIRE_CRACKLE, SoundSource.BLOCKS, 1.0F,
                         1.0F, false);
             }
             for (float xi = xPos - 1; xi <= xPos + 1; xi++) {
                 for (float zi = zPos - 1; zi <= zPos + 1; zi++) {
                     if (GTValues.RNG.nextFloat() < .9F)
                         continue;
-                    level.addParticle(ParticleTypes.LARGE_SMOKE, xi, yPos, zi, horSpd, ySpd, horSpd2);
+                    getLevel().addParticle(ParticleTypes.LARGE_SMOKE, xi, yPos, zi, horSpd, ySpd, horSpd2);
                 }
             }
         }
@@ -325,8 +315,6 @@ public class EarthCharcoalPileIgniterMachine extends WorkableMultiblockMachine
 
     private void convertLogBlocks() {
         Level level = getLevel();
-        if (level == null) return;
-
         for (BlockPos pos : logPos) {
             level.setBlockAndUpdate(pos, GTBlocks.BRITTLE_CHARCOAL.getDefaultState());
         }
@@ -334,10 +322,12 @@ public class EarthCharcoalPileIgniterMachine extends WorkableMultiblockMachine
     }
 
     @Override
-    public InteractionResult onUse(BlockState state, Level level, BlockPos pos, Player player,
-                                   InteractionHand hand, BlockHitResult hit) {
+    public InteractionResult onUse(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand,
+                                   BlockHitResult hit) {
+        if (!isFormed() || hasAir) {
+            return super.onUse(state, level, pos, player, hand, hit);
+        }
         ItemStack stack = player.getItemInHand(hand);
-
         if (!stack.is(CustomTags.TOOLS_IGNITER)) {
             return InteractionResult.PASS;
         }
@@ -346,12 +336,17 @@ public class EarthCharcoalPileIgniterMachine extends WorkableMultiblockMachine
             return InteractionResult.SUCCESS;
         } else if (!isActive()) {
             boolean shouldActivate = false;
-
-            // Спрощена логіка без LighterBehavior
-            if (stack.isDamageableItem()) {
+            if (stack.getItem() instanceof ComponentItem compItem) {
+                for (var component : compItem.getComponents()) {
+                    if (component instanceof LighterBehavior lighter && lighter.consumeFuel(player, stack)) {
+                        shouldActivate = true;
+                        break;
+                    }
+                }
+            } else if (stack.isDamageableItem()) {
                 stack.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(hand));
                 shouldActivate = true;
-            } else if (!stack.isEmpty()) {
+            } else {
                 stack.shrink(1);
                 shouldActivate = true;
             }
@@ -365,18 +360,16 @@ public class EarthCharcoalPileIgniterMachine extends WorkableMultiblockMachine
                 return InteractionResult.CONSUME;
             }
         }
-        return InteractionResult.PASS;
+        return super.onUse(state, level, pos, player, hand, hit);
     }
 
-    public static class CharcoalRecipeLogic extends RecipeLogic {
+    public static class EarthCharcoalRecipeLogic extends RecipeLogic {
 
-        public CharcoalRecipeLogic(EarthCharcoalPileIgniterMachine machine) {
+        private final EarthCharcoalPileIgniterMachine machine;
+
+        public EarthCharcoalRecipeLogic(EarthCharcoalPileIgniterMachine machine) {
             super(machine);
-        }
-
-        @Override
-        public EarthCharcoalPileIgniterMachine getMachine() {
-            return (EarthCharcoalPileIgniterMachine) super.getMachine();
+            this.machine = machine;
         }
 
         @Override
@@ -386,7 +379,7 @@ public class EarthCharcoalPileIgniterMachine extends WorkableMultiblockMachine
                 if (++progress >= duration) {
                     progress = 0;
                     duration = 0;
-                    getMachine().convertLogBlocks();
+                    this.machine.convertLogBlocks();
                     setStatus(Status.IDLE);
                 }
             }
@@ -396,7 +389,4 @@ public class EarthCharcoalPileIgniterMachine extends WorkableMultiblockMachine
             this.duration = max;
         }
     }
-
-    public static final ManagedFieldHolder MANAGED_FIELD_HOLDER = new ManagedFieldHolder(
-            EarthCharcoalPileIgniterMachine.class, WorkableMultiblockMachine.MANAGED_FIELD_HOLDER);
 }

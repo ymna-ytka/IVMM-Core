@@ -1,13 +1,17 @@
 package com.ymnaytka.ivmmcore.common.data.materials;
 
+import com.gregtechceu.gtceu.api.data.chemical.material.properties.PropertyKey;
+import com.gregtechceu.gtceu.api.data.chemical.material.properties.ToolProperty;
+import com.gregtechceu.gtceu.api.item.tool.GTToolType;
+import com.gregtechceu.gtceu.common.data.GTMaterials;
 import com.ymnaytka.ivmmcore.IVMMCore;
 
 import com.gregtechceu.gtceu.api.data.chemical.material.Material;
 import com.gregtechceu.gtceu.api.data.chemical.material.info.MaterialIconSet;
-import net.minecraft.world.item.Items;
 
 import static com.gregtechceu.gtceu.api.data.chemical.material.info.MaterialFlags.*;
 import static com.gregtechceu.gtceu.api.data.tag.TagPrefix.*;
+import static com.gregtechceu.gtceu.common.data.GTMaterials.*;
 
 public class IVMMCoreMaterials {
 
@@ -37,4 +41,13 @@ public class IVMMCoreMaterials {
                 .buildAndRegister();
     }
 
+    public static void modifyMaterials() {
+        if (GTMaterials.TungstenCarbide.hasProperty(PropertyKey.TOOL)) {
+            GTMaterials.TungstenCarbide.removeProperty(PropertyKey.TOOL);
+        }
+        TungstenCarbide.setProperty(PropertyKey.TOOL,
+                (ToolProperty.Builder.of(180, 5.9f, 2147483647, 6, GTToolType.SOFT_MALLET, GTToolType.DRILL_LV)
+                        .build()));
+
+    }
 }

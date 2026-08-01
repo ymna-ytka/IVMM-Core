@@ -1,13 +1,12 @@
 package com.ymnaytka.ivmmcore;
 
 import com.ymnaytka.ivmmcore.api.registries.IVMMCoreRegistration;
+import com.ymnaytka.ivmmcore.common.data.worldgen.IVMMCoreWorldgen;
 
 import com.gregtechceu.gtceu.api.addon.GTAddon;
 import com.gregtechceu.gtceu.api.addon.IGTAddon;
 import com.gregtechceu.gtceu.api.registry.registrate.GTRegistrate;
 
-import com.ymnaytka.ivmmcore.common.data.worldgen.IVMMCoreOreVeins_A;
-import com.ymnaytka.ivmmcore.common.data.worldgen.IVMMCoreWorldgen;
 import net.minecraft.data.recipes.FinishedRecipe;
 
 import java.util.function.Consumer;
@@ -48,5 +47,4 @@ public class IVMMCoreGTAddon implements IGTAddon {
     public void registerOreVeins() {
         IVMMCoreWorldgen.lateInit();
     }
-
 }

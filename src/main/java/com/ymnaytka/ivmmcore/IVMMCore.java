@@ -7,6 +7,7 @@ import com.ymnaytka.ivmmcore.common.data.IVMMCoreDatagen;
 import com.ymnaytka.ivmmcore.common.data.IVMMCoreRecipeTypes;
 import com.ymnaytka.ivmmcore.common.data.machine.multiblock.IVMMCoreMultiblock_A;
 import com.ymnaytka.ivmmcore.common.data.materials.IVMMCoreMaterials;
+import com.ymnaytka.ivmmcore.common.data.worldgen.IVMMCoreWorldgen;
 
 import com.gregtechceu.gtceu.api.GTCEuAPI;
 import com.gregtechceu.gtceu.api.data.chemical.material.event.MaterialEvent;
@@ -18,7 +19,6 @@ import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
 import com.gregtechceu.gtceu.api.recipe.condition.RecipeConditionType;
 import com.gregtechceu.gtceu.api.sound.SoundEntry;
 
-import com.ymnaytka.ivmmcore.common.data.worldgen.IVMMCoreWorldgen;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -43,6 +43,7 @@ public class IVMMCore {
         bus.addGenericListener(RecipeConditionType.class, this::registerConditions);
         bus.addGenericListener(MachineDefinition.class, this::registerMachines);
         bus.addGenericListener(SoundEntry.class, this::registerSounds);
+
     }
 
     public static void init() {
@@ -69,12 +70,10 @@ public class IVMMCore {
 
     /**
      * (Optional) Used to modify pre-existing materials from GregTech
-     * 
+     *
      * @param event
      */
-    private void modifyMaterials(PostMaterialEvent event) {
-        // CustomMaterials.modify();
-    }
+    private void modifyExistingMaterials(PostMaterialEvent event) {IVMMCoreMaterials.modifyMaterials(); }
 
     public void registerConditions(GTCEuAPI.RegisterEvent<String, RecipeConditionType<?>> event) {}
 
@@ -85,7 +84,7 @@ public class IVMMCore {
     /**
      * Used to register your own new machines.
      * Call init() from your Machine class(es) here
-     * 
+     *
      * @param event
      */
     private void registerMachines(GTCEuAPI.RegisterEvent<ResourceLocation, MachineDefinition> event) {
@@ -95,7 +94,7 @@ public class IVMMCore {
     /**
      * Used to register your own new sounds
      * Call init from your Sound class(es) here
-     * 
+     *
      * @param event
      */
     public void registerSounds(GTCEuAPI.RegisterEvent<ResourceLocation, SoundEntry> event) {
