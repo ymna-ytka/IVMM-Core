@@ -6,7 +6,8 @@ import com.ymnaytka.ivmmcore.common.data.IVMMCoreCreativeModeTab;
 import com.ymnaytka.ivmmcore.common.data.IVMMCoreDatagen;
 import com.ymnaytka.ivmmcore.common.data.IVMMCoreRecipeTypes;
 import com.ymnaytka.ivmmcore.common.data.machine.multiblock.IVMMCoreMultiblock_A;
-import com.ymnaytka.ivmmcore.common.data.materials.IVMMCoreMaterials;
+import com.ymnaytka.ivmmcore.common.data.materials.IVMMCoreMaterials_A;
+import com.ymnaytka.ivmmcore.common.data.materials.IVMMCoreModification;
 import com.ymnaytka.ivmmcore.common.data.worldgen.IVMMCoreWorldgen;
 
 import com.gregtechceu.gtceu.api.GTCEuAPI;
@@ -20,6 +21,7 @@ import com.gregtechceu.gtceu.api.recipe.condition.RecipeConditionType;
 import com.gregtechceu.gtceu.api.sound.SoundEntry;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -35,15 +37,18 @@ public class IVMMCore {
     public static final Logger LOGGER = LogManager.getLogger();
     public static MaterialRegistry MATERIAL_REGISTRY;
 
-    public IVMMCore(FMLJavaModLoadingContext context) {
+    public IVMMCore() {
         IVMMCore.init();
-        var bus = context.getModEventBus();
-        bus.register(this);
-        bus.addGenericListener(GTRecipeType.class, this::registerRecipeTypes);
-        bus.addGenericListener(RecipeConditionType.class, this::registerConditions);
-        bus.addGenericListener(MachineDefinition.class, this::registerMachines);
-        bus.addGenericListener(SoundEntry.class, this::registerSounds);
+        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
+        modEventBus.addGenericListener(RecipeConditionType.class, this::registerConditions);
+        modEventBus.addGenericListener(GTRecipeType.class, this::registerRecipeTypes);
+        modEventBus.addGenericListener(SoundEntry.class, this::registerSounds);
+        modEventBus.addGenericListener(MachineDefinition.class, this::registerMachines);
+
+        modEventBus.addListener(this::addMaterialRegistries);
+        modEventBus.addListener(this::addMaterials);
+        modEventBus.addListener(this::modifyMaterials);
     }
 
     public static void init() {
@@ -59,13 +64,13 @@ public class IVMMCore {
     }
 
     @SubscribeEvent
-    public void registerMaterialRegistry(MaterialRegistryEvent event) {
-        MATERIAL_REGISTRY = GTCEuAPI.materialManager.createRegistry(IVMMCore.MOD_ID);
+    public void addMaterialRegistries(MaterialRegistryEvent event) {
+        MATERIAL_REGISTRY = GTCEuAPI.materialManager.createRegistry(MOD_ID);
     }
 
     @SubscribeEvent
-    public void registerMaterials(MaterialEvent event) {
-        IVMMCoreMaterials.register();
+    public void addMaterials(MaterialEvent event) {
+        IVMMCoreMaterials_A.register();
     }
 
     /**
@@ -73,7 +78,9 @@ public class IVMMCore {
      *
      * @param event
      */
-    private void modifyExistingMaterials(PostMaterialEvent event) {IVMMCoreMaterials.modifyMaterials(); }
+    private void modifyMaterials(PostMaterialEvent event) {
+        IVMMCoreModification.modifyMaterials();
+    }
 
     public void registerConditions(GTCEuAPI.RegisterEvent<String, RecipeConditionType<?>> event) {}
 

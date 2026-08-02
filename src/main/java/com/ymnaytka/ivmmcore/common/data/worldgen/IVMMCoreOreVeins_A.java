@@ -1,6 +1,6 @@
 package com.ymnaytka.ivmmcore.common.data.worldgen;
 
-import com.ymnaytka.ivmmcore.common.data.materials.IVMMCoreMaterials;
+import com.ymnaytka.ivmmcore.common.data.materials.IVMMCoreMaterials_A;
 
 import com.gregtechceu.gtceu.api.data.worldgen.GTLayerPattern;
 import com.gregtechceu.gtceu.api.data.worldgen.GTOreDefinition;
@@ -38,12 +38,12 @@ public class IVMMCoreOreVeins_A {
                 .layeredVeinGenerator(generator -> generator
                         .withLayerPattern(() -> GTLayerPattern.builder(OVERWORLD_RULES)
                                 .layer(l -> l.weight(2).mat(Limonite).size(1, 1))
-                                .layer(l -> l.weight(2).mat(IVMMCoreMaterials.Azurite).size(1, 1))
+                                .layer(l -> l.weight(2).mat(IVMMCoreMaterials_A.Azurite).size(1, 1))
                                 .layer(l -> l.weight(1).mat(Malachite).size(1, 1))
                                 .layer(l -> l.weight(1).mat(Bornite).size(1, 1))
                                 .build()))
                 .surfaceIndicatorGenerator(indicator -> indicator
-                        .surfaceRock(IVMMCoreMaterials.Azurite)
+                        .surfaceRock(IVMMCoreMaterials_A.Azurite)
                         .placement(SurfaceIndicatorGenerator.IndicatorPlacement.ABOVE)));
     }
 
