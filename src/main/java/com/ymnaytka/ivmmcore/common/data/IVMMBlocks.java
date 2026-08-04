@@ -1,6 +1,8 @@
 package com.ymnaytka.ivmmcore.common.data;
 
+import com.gregtechceu.gtceu.common.block.StoneBlockType;
 import com.ymnaytka.ivmmcore.IVMMCore;
+import com.ymnaytka.ivmmcore.api.data.tag.IVMMCoreTagPrefix;
 import com.ymnaytka.ivmmcore.api.registries.IVMMCoreRegistration;
 
 import com.gregtechceu.gtceu.common.data.models.GTModels;
@@ -12,6 +14,7 @@ import net.minecraft.world.level.block.*;
 
 import com.tterrag.registrate.util.entry.BlockEntry;
 
+import static com.gregtechceu.gtceu.common.data.GTBlocks.*;
 import static com.ymnaytka.ivmmcore.api.registries.IVMMCoreRegistration.REGISTRATE;
 
 public class IVMMBlocks {
@@ -33,6 +36,7 @@ public class IVMMBlocks {
                 .build()
                 .register();
     }
+
 
     public static void init() {}
 }

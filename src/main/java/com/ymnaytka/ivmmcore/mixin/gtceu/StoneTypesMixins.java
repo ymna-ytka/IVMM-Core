@@ -1,5 +1,6 @@
-package com.ymnaytka.ivmmcore.mixin;
+package com.ymnaytka.ivmmcore.mixin.gtceu;
 
+import com.gregtechceu.gtceu.common.block.StoneTypes;
 import net.minecraft.world.level.levelgen.WorldgenRandom;
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -10,5 +11,5 @@ import org.spongepowered.asm.mixin.Mixin;
 // but it is generally preferred that you try to use other means
 // to get your code to work before resorting to mixins,
 // as they can be highly invasive.
-@Mixin(value = WorldgenRandom.class, remap = false)
-public class DummyMixin {}
+@Mixin(value = StoneTypes.class, remap = false)
+public class StoneTypesMixins {}
