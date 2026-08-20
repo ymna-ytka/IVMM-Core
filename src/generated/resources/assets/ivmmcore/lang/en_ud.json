@@ -1,9 +1,9 @@
 {
-  "block.ivmmcore.earth_pile_igniter": "ɹǝʇıubI ǝןıԀ ɥʇɹɐƎ",
-  "block.ivmmcore.primitive_earth_furnace": "ǝɔɐuɹnℲ ɥʇɹɐƎ ǝʌıʇıɯıɹԀ",
-  "block.ivmmcore.tacky_bricks": "sʞɔıɹᗺ ʎʞɔɐ⟘",
+  "item.ivmmcore.flask_rabbit": ")ʇıqqɐᴚ( uıʞsɹǝʇɐM",
+  "item.ivmmcore.flask_rabbit.filled": ")ʇıqqɐᴚ( uıʞsɹǝʇɐM pǝןןıℲ",
+  "item.ivmmcore.flask_sheep": ")dǝǝɥS( uıʞsɹǝʇɐM",
+  "item.ivmmcore.flask_sheep.filled": ")dǝǝɥS( uıʞsɹǝʇɐM pǝןןıℲ",
   "itemGroup.ivmmcore.creative_tab": "ǝɹoƆ WWΛI",
   "material.ivmmcore.azurite": "ǝʇıɹnzⱯ",
-  "material.ivmmcore.black_copper_oxide": "ǝpıxO )II(ɹǝddoƆ",
   "material.ivmmcore.sand": "puɐS"
 }

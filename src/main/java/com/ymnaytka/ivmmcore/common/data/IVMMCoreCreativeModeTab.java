@@ -3,6 +3,7 @@ package com.ymnaytka.ivmmcore.common.data;
 import com.ymnaytka.ivmmcore.IVMMCore;
 
 import com.gregtechceu.gtceu.common.data.GTCreativeModeTabs;
+import com.gregtechceu.gtceu.common.data.GTItems;
 
 import net.minecraft.world.item.CreativeModeTab;
 
@@ -16,7 +17,7 @@ public class IVMMCoreCreativeModeTab {
             builder -> builder
                     .displayItems(new GTCreativeModeTabs.RegistrateDisplayItemsGenerator(IVMMCore.MOD_ID, REGISTRATE))
                     .title(REGISTRATE.addLang("itemGroup", IVMMCore.id("creative_tab"), "IVMM Core"))
-                    .icon(IVMMBlocks.TACKY_BRICKS::asStack)
+                    .icon(GTItems.ULTIMATE_BATTERY::asStack)
                     .build())
             .register();
 

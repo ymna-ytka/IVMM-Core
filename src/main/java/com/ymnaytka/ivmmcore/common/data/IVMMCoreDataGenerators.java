@@ -1,4 +1,3 @@
 package com.ymnaytka.ivmmcore.common.data;
 
-public class IVMMCoreDataGenerators {
-}
+public class IVMMCoreDataGenerators {}

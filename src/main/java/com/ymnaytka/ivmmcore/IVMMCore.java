@@ -1,10 +1,7 @@
 package com.ymnaytka.ivmmcore;
 
 import com.ymnaytka.ivmmcore.api.registries.IVMMCoreRegistration;
-import com.ymnaytka.ivmmcore.common.data.IVMMBlocks;
-import com.ymnaytka.ivmmcore.common.data.IVMMCoreCreativeModeTab;
-import com.ymnaytka.ivmmcore.common.data.IVMMCoreDatagen;
-import com.ymnaytka.ivmmcore.common.data.IVMMCoreRecipeTypes;
+import com.ymnaytka.ivmmcore.common.data.*;
 import com.ymnaytka.ivmmcore.common.data.machine.multiblock.IVMMCoreMultiblock_A;
 import com.ymnaytka.ivmmcore.common.data.materials.IVMMCoreMaterials_A;
 import com.ymnaytka.ivmmcore.common.data.materials.IVMMCoreModification;
@@ -24,6 +21,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import org.apache.logging.log4j.LogManager;
@@ -51,9 +49,12 @@ public class IVMMCore {
         modEventBus.addListener(this::modifyMaterials);
     }
 
+
+
     public static void init() {
         IVMMCoreRegistration.REGISTRATE.registerRegistrate();
         IVMMCoreDatagen.init();
+        IVMMItems.init();
         IVMMBlocks.init();
         IVMMCoreCreativeModeTab.init();
         IVMMCoreWorldgen.init();

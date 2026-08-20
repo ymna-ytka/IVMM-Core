@@ -41,3 +41,6 @@ IVMM Core
         versionRange = "[${gtceu_version},)"
         ordering = "AFTER"
         side = "BOTH"
+
+[[mixins]]
+config = "ivmmcore.mixins.json"

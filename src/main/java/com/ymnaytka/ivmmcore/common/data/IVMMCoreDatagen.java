@@ -2,7 +2,7 @@ package com.ymnaytka.ivmmcore.common.data;
 
 import com.ymnaytka.ivmmcore.api.registries.IVMMCoreRegistration;
 import com.ymnaytka.ivmmcore.common.data.datagen.IVMMCoreMaterialsLang;
-import com.ymnaytka.ivmmcore.common.data.lang.IVMMCoreLangHandler;
+import com.ymnaytka.ivmmcore.common.data.datagen.lang.IVMMCoreLangHandler;
 import com.ymnaytka.ivmmcore.common.data.tag.IVMMCoreTagsHandler;
 
 import com.tterrag.registrate.providers.ProviderType;

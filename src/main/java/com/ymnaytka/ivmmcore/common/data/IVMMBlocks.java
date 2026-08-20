@@ -1,8 +1,5 @@
 package com.ymnaytka.ivmmcore.common.data;
 
-import com.gregtechceu.gtceu.common.block.StoneBlockType;
-import com.ymnaytka.ivmmcore.IVMMCore;
-import com.ymnaytka.ivmmcore.api.data.tag.IVMMCoreTagPrefix;
 import com.ymnaytka.ivmmcore.api.registries.IVMMCoreRegistration;
 
 import com.gregtechceu.gtceu.common.data.models.GTModels;
@@ -23,9 +20,6 @@ public class IVMMBlocks {
         IVMMCoreRegistration.REGISTRATE.creativeModeTab(() -> IVMMCoreCreativeModeTab.IVMM_CORE);
     }
 
-    public static final BlockEntry<Block> TACKY_BRICKS = createBrickCasingBlock("tacky_bricks",
-            IVMMCore.id("block/casings/solid/tacky_bricks"));
-
     private static BlockEntry<Block> createBrickCasingBlock(String name, ResourceLocation texture) {
         return REGISTRATE.block(name, Block::new)
                 .initialProperties(() -> Blocks.IRON_BLOCK)
@@ -36,7 +30,6 @@ public class IVMMBlocks {
                 .build()
                 .register();
     }
-
 
     public static void init() {}
 }

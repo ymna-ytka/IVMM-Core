@@ -1,9 +1,9 @@
 {
-  "block.ivmmcore.earth_pile_igniter": "Earth Pile Igniter",
-  "block.ivmmcore.primitive_earth_furnace": "Primitive Earth Furnace",
-  "block.ivmmcore.tacky_bricks": "Tacky Bricks",
+  "item.ivmmcore.flask_rabbit": "Waterskin (Rabbit)",
+  "item.ivmmcore.flask_rabbit.filled": "Filled Waterskin (Rabbit)",
+  "item.ivmmcore.flask_sheep": "Waterskin (Sheep)",
+  "item.ivmmcore.flask_sheep.filled": "Filled Waterskin (Sheep)",
   "itemGroup.ivmmcore.creative_tab": "IVMM Core",
   "material.ivmmcore.azurite": "Azurite",
-  "material.ivmmcore.black_copper_oxide": "Copper(II) Oxide",
   "material.ivmmcore.sand": "Sand"
 }
