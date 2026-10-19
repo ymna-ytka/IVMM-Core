@@ -28,13 +28,13 @@ import java.util.function.Supplier;
 public class FlaskItem extends DiscreteFluidContainerItem {
 
     public FlaskItem(
-            Item.Properties properties, Supplier<Integer> capacity, TagKey<Fluid> whitelist) {
+                     Item.Properties properties, Supplier<Integer> capacity, TagKey<Fluid> whitelist) {
         super(properties, capacity, whitelist, false, false);
     }
 
     @Override
     public InteractionResultHolder<ItemStack> use(
-            Level level, Player player, InteractionHand hand) {
+                                                  Level level, Player player, InteractionHand hand) {
         final ItemStack stack = player.getItemInHand(hand);
         final BlockHitResult hit = Helpers.rayTracePlayer(level, player, ClipContext.Fluid.SOURCE_ONLY);
 
@@ -93,11 +93,11 @@ public class FlaskItem extends DiscreteFluidContainerItem {
 
     @Override
     protected InteractionResultHolder<ItemStack> afterEmptyFailed(
-            IFluidHandler handler,
-            Level level,
-            Player player,
-            ItemStack stack,
-            InteractionHand hand) {
+                                                                  IFluidHandler handler,
+                                                                  Level level,
+                                                                  Player player,
+                                                                  ItemStack stack,
+                                                                  InteractionHand hand) {
         System.out.println("[DEBUG] afterEmptyFailed called, shift=" + player.isShiftKeyDown());
         if (player.isShiftKeyDown()) {
             level.playSound(

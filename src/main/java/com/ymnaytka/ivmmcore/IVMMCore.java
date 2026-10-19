@@ -21,7 +21,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import org.apache.logging.log4j.LogManager;
@@ -48,8 +47,6 @@ public class IVMMCore {
         modEventBus.addListener(this::addMaterials);
         modEventBus.addListener(this::modifyMaterials);
     }
-
-
 
     public static void init() {
         IVMMCoreRegistration.REGISTRATE.registerRegistrate();

@@ -27,16 +27,18 @@ public class IVMMItems {
     }
 
     public static ItemEntry<FlaskItem> FLASK_RABBIT = REGISTRATE.item("flask_rabbit",
-                    p -> new FlaskItem(p, () -> 1000, TFCTags.Fluids.USABLE_IN_JUG))
+            p -> new FlaskItem(p, () -> 1000, TFCTags.Fluids.USABLE_IN_JUG))
             .lang("Waterskin (Rabbit)")
             .properties(p -> p.stacksTo(1))
             .model((ctx, prov) -> {
                 var builder = prov.getBuilder(ctx.getName())
-                        .parent(prov.getExistingFile(ResourceLocation.fromNamespaceAndPath("minecraft", "item/generated")))
+                        .parent(prov
+                                .getExistingFile(ResourceLocation.fromNamespaceAndPath("minecraft", "item/generated")))
                         .texture("layer0", "ivmmcore:item/flask_rabbit");
 
                 prov.getBuilder(ctx.getName() + "_filled")
-                        .parent(prov.getExistingFile(ResourceLocation.fromNamespaceAndPath("minecraft", "item/generated")))
+                        .parent(prov
+                                .getExistingFile(ResourceLocation.fromNamespaceAndPath("minecraft", "item/generated")))
                         .texture("layer0", "ivmmcore:item/flask_rabbit_filled");
 
                 builder.override()
@@ -48,16 +50,18 @@ public class IVMMItems {
             .register();
     // #TODO Enable the option to fill the flask with more than one bucket and make it work properly
     public static ItemEntry<FlaskItem> FLASK_SHEEP = REGISTRATE.item("flask_sheep",
-                    p -> new FlaskItem(p, () -> 1000, TFCTags.Fluids.USABLE_IN_JUG))
+            p -> new FlaskItem(p, () -> 1000, TFCTags.Fluids.USABLE_IN_JUG))
             .lang("Waterskin (Sheep)")
             .properties(p -> p.stacksTo(1))
             .model((ctx, prov) -> {
                 var builder = prov.getBuilder(ctx.getName())
-                        .parent(prov.getExistingFile(ResourceLocation.fromNamespaceAndPath("minecraft", "item/generated")))
+                        .parent(prov
+                                .getExistingFile(ResourceLocation.fromNamespaceAndPath("minecraft", "item/generated")))
                         .texture("layer0", "ivmmcore:item/flask_sheep");
 
                 prov.getBuilder(ctx.getName() + "_filled")
-                        .parent(prov.getExistingFile(ResourceLocation.fromNamespaceAndPath("minecraft", "item/generated")))
+                        .parent(prov
+                                .getExistingFile(ResourceLocation.fromNamespaceAndPath("minecraft", "item/generated")))
                         .texture("layer0", "ivmmcore:item/flask_sheep_filled");
 
                 builder.override()
