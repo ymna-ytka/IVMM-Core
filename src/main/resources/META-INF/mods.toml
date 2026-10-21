@@ -41,6 +41,12 @@ IVMM Core
         versionRange = "[${gtceu_version},)"
         ordering = "AFTER"
         side = "BOTH"
+    [[dependencies.${mod_id}]]
+        modId = "tfc"
+        mandatory = true
+        versionRange = "[${tfc_version},)"
+        ordering = "AFTER"
+        side = "BOTH"
 
 [[mixins]]
 config = "ivmmcore.mixins.json"

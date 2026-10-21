@@ -117,6 +117,10 @@ legacyForge {
         }
     }
 }
+mixin {
+    add sourceSets.main, "ivmmcore.refmap.json"
+    config "ivmmcore.mixins.json"
+}
 jar {
     manifest.attributes([
             "MixinConfigs": "ivmmcore.mixins.json"
@@ -165,6 +169,7 @@ tasks.named('processResources', ProcessResources).configure {
             "forge_version": forge_version.split("\\.")[0], // only specify major version of forge
             "minecraft_version": minecraft_version,
             "gtceu_version": gtceu_version,
+            "tfc_version": tfc_version,
     ]
     inputs.properties(properties)
 

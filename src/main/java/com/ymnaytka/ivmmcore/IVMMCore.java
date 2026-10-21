@@ -6,6 +6,9 @@ import com.ymnaytka.ivmmcore.common.data.machine.multiblock.IVMMCoreMultiblock_A
 import com.ymnaytka.ivmmcore.common.data.materials.IVMMCoreMaterials_A;
 import com.ymnaytka.ivmmcore.common.data.materials.IVMMCoreModification;
 import com.ymnaytka.ivmmcore.common.data.worldgen.IVMMCoreWorldgen;
+import com.ymnaytka.ivmmcore.common.data.worldgen.tfc.IVMMCoreBiomeModifiers;
+import com.ymnaytka.ivmmcore.common.data.worldgen.tfc.IVMMCoreRuleTests;
+import com.ymnaytka.ivmmcore.config.IVMMCoreConfig;
 
 import com.gregtechceu.gtceu.api.GTCEuAPI;
 import com.gregtechceu.gtceu.api.data.chemical.material.event.MaterialEvent;
@@ -20,7 +23,9 @@ import com.gregtechceu.gtceu.api.sound.SoundEntry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import org.apache.logging.log4j.LogManager;
@@ -46,6 +51,10 @@ public class IVMMCore {
         modEventBus.addListener(this::addMaterialRegistries);
         modEventBus.addListener(this::addMaterials);
         modEventBus.addListener(this::modifyMaterials);
+
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, IVMMCoreConfig.SPEC);
+        IVMMCoreBiomeModifiers.SERIALIZERS.register(modEventBus);
+        IVMMCoreRuleTests.RULE_TESTS.register(modEventBus);
     }
 
     public static void init() {
