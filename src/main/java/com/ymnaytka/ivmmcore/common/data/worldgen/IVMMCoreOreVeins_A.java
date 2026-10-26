@@ -58,7 +58,7 @@ public class IVMMCoreOreVeins_A {
     private static void create(String name, Consumer<GTOreDefinition> config) {
         GTOreDefinition def = blank();
         config.accept(def);
-        ResourceLocation id = new ResourceLocation("ivmmcore", name);
+        ResourceLocation id = ResourceLocation.fromNamespaceAndPath("ivmmcore", name);
         def.register(id);
         GTRegistries.ORE_VEINS.registerOrOverride(id, def);
     }

@@ -27,7 +27,8 @@ public final class IVMMCoreConfig {
                 .comment("Also remove TFC '*_deposit' / '*_deep_deposit' features (small surface/river ores).")
                 .define("removeDeposits", true);
         KEPT_FEATURES = b
-                .comment("Placed features under 'tfc:vein/' that are NOT ores and must stay (rock dikes, gravel, kaolin).",
+                .comment(
+                        "Placed features under 'tfc:vein/' that are NOT ores and must stay (rock dikes, gravel, kaolin).",
                         "Add ids here to keep them; remove ids to delete them too.")
                 .defineListAllowEmpty("keptFeatures",
                         List.of("tfc:vein/granite_dike", "tfc:vein/diorite_dike", "tfc:vein/gabbro_dike",
@@ -37,7 +38,8 @@ public final class IVMMCoreConfig {
 
         b.push("gregtech");
         ENABLE_GT_ORES_IN_TFC = b
-                .comment("Generate GTCEu ore veins in TFC worlds (hooks TFCChunkGenerator, extends GT layers to TFC raw rock).")
+                .comment(
+                        "Generate GTCEu ore veins in TFC worlds (hooks TFCChunkGenerator, extends GT layers to TFC raw rock).")
                 .define("enableGtOresInTfc", true);
         b.pop();
 

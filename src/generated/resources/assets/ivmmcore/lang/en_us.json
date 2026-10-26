@@ -1,7 +1,7 @@
 {
-  "item.ivmmcore.flask_rabbit": "Waterskin (Rabbit)",
+  "item.ivmmcore.flask_rabbit": "Waterskin (Small)",
   "item.ivmmcore.flask_rabbit.filled": "Filled Waterskin (Rabbit)",
-  "item.ivmmcore.flask_sheep": "Waterskin (Sheep)",
+  "item.ivmmcore.flask_sheep": "Waterskin (Huge)",
   "item.ivmmcore.flask_sheep.filled": "Filled Waterskin (Sheep)",
   "itemGroup.ivmmcore.creative_tab": "IVMM Core",
   "material.ivmmcore.azurite": "Azurite",

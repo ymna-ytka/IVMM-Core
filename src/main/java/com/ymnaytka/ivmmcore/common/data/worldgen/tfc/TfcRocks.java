@@ -4,7 +4,6 @@ import net.minecraft.resources.ResourceLocation;
 
 import java.util.List;
 
-
 public final class TfcRocks {
 
     public static final List<String> RAW_ROCKS = List.of(
@@ -15,6 +14,6 @@ public final class TfcRocks {
     private TfcRocks() {}
 
     public static ResourceLocation rawBlockId(String rock) {
-        return new ResourceLocation("tfc", "rock/raw/" + rock);
+        return ResourceLocation.fromNamespaceAndPath("tfc", "rock/raw/" + rock);
     }
 }

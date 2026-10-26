@@ -8,7 +8,7 @@ spotless {
         target '.gitignore'
 
         trimTrailingWhitespace()
-        indentWithSpaces(4)
+        leadingTabsToSpaces(4)   // was indentWithSpaces(4)
         endWithNewline()
     }
     java {
@@ -21,6 +21,6 @@ spotless {
         importOrderFile(orderFile)
         removeUnusedImports('cleanthat-javaparser-unnecessaryimport')
         endWithNewline()
-        eclipse('4.31').configFile(formatFile)
+        eclipse().configFile(formatFile)       // let Spotless pick its default Eclipse version
     }
 }

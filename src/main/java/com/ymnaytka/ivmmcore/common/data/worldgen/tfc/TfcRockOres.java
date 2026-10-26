@@ -17,14 +17,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
-
 public final class TfcRockOres {
 
     private static final List<TagPrefix> PREFIXES = new ArrayList<>();
 
     private TfcRockOres() {}
 
-    /** Called from {@link IVMMCoreGTAddon#registerTagPrefixes()} (GT calls it once, before ore blocks are generated). */
+    /**
+     * Called from {@link IVMMCoreGTAddon#registerTagPrefixes()} (GT calls it once, before ore blocks are generated).
+     */
     public static void init() {
         if (!PREFIXES.isEmpty()) return;
 
@@ -38,7 +39,7 @@ public final class TfcRockOres {
                             BlockBehaviour.Properties.of()
                                     .mapColor(MapColor.STONE).requiresCorrectToolForDrops()
                                     .strength(3.0F, 3.0F).sound(SoundType.STONE),
-                            new ResourceLocation("tfc", "block/rock/raw/" + rock));
+                            ResourceLocation.fromNamespaceAndPath("tfc", "block/rock/raw/" + rock));
             PREFIXES.add(prefix);
         }
     }

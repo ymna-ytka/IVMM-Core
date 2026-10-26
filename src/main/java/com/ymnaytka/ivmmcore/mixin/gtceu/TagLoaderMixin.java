@@ -25,7 +25,7 @@ import java.util.Map;
 @Mixin(TagLoader.class)
 public abstract class TagLoaderMixin {
 
-    private static final ResourceLocation TFC_ROCK_ORES = new ResourceLocation("tfc", "rock/ores");
+    private static final ResourceLocation TFC_ROCK_ORES = ResourceLocation.fromNamespaceAndPath("tfc", "rock/ores");
     private static final String BLOCK_TAG_DIRECTORY = "tags/blocks";
 
     @Shadow
@@ -34,10 +34,10 @@ public abstract class TagLoaderMixin {
 
     @Inject(method = "load", at = @At("RETURN"))
     private void ivmmcore$addGtRockOresToTfcOreTag(ResourceManager resourceManager,
-                                              CallbackInfoReturnable<Map<ResourceLocation, List<TagLoader.EntryWithSource>>> cir) {
-        if (!BLOCK_TAG_DIRECTORY.equals(directory)
-                || !IVMMCoreConfig.gtOresInTfc()
-                || GTMaterialBlocks.MATERIAL_BLOCKS == null) return;
+                                                   CallbackInfoReturnable<Map<ResourceLocation, List<TagLoader.EntryWithSource>>> cir) {
+        if (!BLOCK_TAG_DIRECTORY.equals(directory) || !IVMMCoreConfig.gtOresInTfc() ||
+                GTMaterialBlocks.MATERIAL_BLOCKS == null)
+            return;
 
         final List<TagLoader.EntryWithSource> entries = cir.getReturnValue()
                 .computeIfAbsent(TFC_ROCK_ORES, id -> new ArrayList<>());

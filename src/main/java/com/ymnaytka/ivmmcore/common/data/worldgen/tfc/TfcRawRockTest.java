@@ -14,12 +14,10 @@ import it.unimi.dsi.fastutil.objects.ReferenceOpenHashSet;
 
 import java.util.Set;
 
-
 public final class TfcRawRockTest extends RuleTest {
 
     public static final Codec<TfcRawRockTest> CODEC = RecordCodecBuilder.create(i -> i.group(
-            RuleTest.CODEC.fieldOf("delegate").forGetter(t -> t.delegate)
-    ).apply(i, TfcRawRockTest::new));
+            RuleTest.CODEC.fieldOf("delegate").forGetter(t -> t.delegate)).apply(i, TfcRawRockTest::new));
 
     private final RuleTest delegate;
     private volatile Set<Block> rocks;

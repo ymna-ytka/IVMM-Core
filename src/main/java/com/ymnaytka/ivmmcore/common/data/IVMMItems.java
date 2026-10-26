@@ -27,7 +27,7 @@ public class IVMMItems {
     }
 
     public static ItemEntry<FlaskItem> FLASK_RABBIT = REGISTRATE.item("flask_rabbit",
-            p -> new FlaskItem(p, () -> 1000, TFCTags.Fluids.USABLE_IN_JUG))
+            p -> new FlaskItem(p, () -> 500, TFCTags.Fluids.USABLE_IN_JUG))
             .lang("Waterskin (Small)")
             .properties(p -> p.stacksTo(1))
             .model((ctx, prov) -> {
@@ -46,12 +46,12 @@ public class IVMMItems {
                         .model(prov.getExistingFile(prov.modLoc("item/" + ctx.getName() + "_filled")))
                         .end();
             })
-            .onRegister(modelPredicate(new ResourceLocation("ivmmcore", "filled"), IVMMItems::isFilled))
+            .onRegister(
+                    modelPredicate(ResourceLocation.fromNamespaceAndPath("ivmmcore", "filled"), IVMMItems::isFilled))
             .register();
     // #TODO Enable the option to fill the flask with more than one bucket and make it work properly
     public static ItemEntry<FlaskItem> FLASK_SHEEP = REGISTRATE.item("flask_sheep",
-            p -> new FlaskItem(p, () -> 1000, TFCTags.Fluids.USABLE_IN_JUG))
-            .lang("Waterskin (Huge)")
+            p -> new FlaskItem(p, () -> 2000, TFCTags.Fluids.USABLE_IN_JUG)).lang("Waterskin (Huge)")
             .properties(p -> p.stacksTo(1))
             .model((ctx, prov) -> {
                 var builder = prov.getBuilder(ctx.getName())
@@ -69,7 +69,7 @@ public class IVMMItems {
                         .model(prov.getExistingFile(prov.modLoc("item/" + ctx.getName() + "_filled")))
                         .end();
             })
-            .onRegister(modelPredicate(new ResourceLocation("ivmmcore", "filled"), IVMMItems::isFilled))
+            .onRegister(modelPredicate(ResourceLocation.fromNamespaceAndPath("ivmmcore", "filled"), IVMMItems::isFull))
             .register();
 
     private static float isFilled(ItemStack stack) {
@@ -87,6 +87,10 @@ public class IVMMItems {
                 ItemProperties.register(item, predicate, (itemStack, c, l, i) -> property.apply(itemStack));
             }
         };
+    }
+
+    private static float isFull(ItemStack stack) {
+        return stack.getItem() instanceof FlaskItem flask && flask.isFull(stack) ? 1.0f : 0.0f;
     }
 
     public static void init() {}

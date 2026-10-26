@@ -18,7 +18,6 @@ import com.mojang.serialization.Codec;
 import java.util.List;
 import java.util.Set;
 
-
 public record TfcOreStripModifier() implements BiomeModifier {
 
     public static final Codec<TfcOreStripModifier> CODEC = Codec.unit(TfcOreStripModifier::new);
@@ -42,7 +41,8 @@ public record TfcOreStripModifier() implements BiomeModifier {
         }
 
         if (removed > 0) {
-            IVMMCore.LOGGER.debug("[IVMMCore] {}: removed {} TFC ore features", biome.unwrapKey().orElse(null), removed);
+            IVMMCore.LOGGER.debug("[IVMMCore] {}: removed {} TFC ore features", biome.unwrapKey().orElse(null),
+                    removed);
         }
     }
 

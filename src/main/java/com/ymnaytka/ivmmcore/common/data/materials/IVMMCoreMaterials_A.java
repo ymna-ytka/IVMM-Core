@@ -1,10 +1,10 @@
 package com.ymnaytka.ivmmcore.common.data.materials;
 
-import com.gregtechceu.gtceu.api.fluids.FluidBuilder;
 import com.ymnaytka.ivmmcore.IVMMCore;
 
 import com.gregtechceu.gtceu.api.data.chemical.material.Material;
 import com.gregtechceu.gtceu.api.data.chemical.material.info.MaterialIconSet;
+import com.gregtechceu.gtceu.api.fluids.FluidBuilder;
 
 import static com.gregtechceu.gtceu.api.data.chemical.material.info.MaterialFlags.*;
 import static com.gregtechceu.gtceu.common.data.GTMaterials.*;

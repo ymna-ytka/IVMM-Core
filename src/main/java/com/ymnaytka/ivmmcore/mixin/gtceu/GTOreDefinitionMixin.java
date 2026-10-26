@@ -18,7 +18,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.function.Supplier;
 
-
 @Mixin(value = GTOreDefinition.class, remap = false)
 public abstract class GTOreDefinitionMixin {
 

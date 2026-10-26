@@ -5,11 +5,9 @@
   "refmap": "ivmmcore.refmap.json",
   "minVersion": "0.8",
   "mixins": [
-    "GTOreDefinitionMixin",
-    "TagLoaderMixin",
-    "TfcChunkGeneratorMixin"
-  ],
-  "client": [
+    "gtceu.GTOreDefinitionMixin",
+    "gtceu.TagLoaderMixin",
+    "tfc.TfcChunkGeneratorMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -24,7 +24,7 @@ public abstract class TfcChunkGeneratorMixin {
 
     @Inject(method = "applyBiomeDecoration", at = @At("TAIL"))
     private void ivmmcore$placeGtOres(WorldGenLevel level, ChunkAccess chunk, StructureManager structureManager,
-                                  CallbackInfo ci) {
+                                      CallbackInfo ci) {
         if (IVMMCoreConfig.gtOresInTfc()) {
             ivmmcore$orePlacer.placeOres(level, (ChunkGenerator) (Object) this, chunk);
         }

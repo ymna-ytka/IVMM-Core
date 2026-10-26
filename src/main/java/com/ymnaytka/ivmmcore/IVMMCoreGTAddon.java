@@ -45,12 +45,10 @@ public class IVMMCoreGTAddon implements IGTAddon {
     }
 
     @Override
-    public void addRecipes(Consumer<FinishedRecipe> provider) {
-    }
+    public void addRecipes(Consumer<FinishedRecipe> provider) {}
 
     @Override
-    public void registerElements() {
-    }
+    public void registerElements() {}
 
     @Override
     public void registerOreVeins() {

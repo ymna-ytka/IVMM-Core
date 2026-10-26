@@ -80,7 +80,6 @@ public class IVMMCore {
         IVMMCoreMaterials_A.register();
     }
 
-
     private void modifyMaterials(PostMaterialEvent event) {
         IVMMCoreModification.modifyMaterials();
     }
@@ -95,6 +94,5 @@ public class IVMMCore {
         IVMMCoreMultiblock_A.init();
     }
 
-    public void registerSounds(GTCEuAPI.RegisterEvent<ResourceLocation, SoundEntry> event) {
-    }
+    public void registerSounds(GTCEuAPI.RegisterEvent<ResourceLocation, SoundEntry> event) {}
 }
