@@ -2,7 +2,7 @@ package com.ymnaytka.ivmmcore.common.data.worldgen.tfc;
 
 import com.ymnaytka.ivmmcore.IVMMCore;
 import com.ymnaytka.ivmmcore.config.IVMMCoreConfig;
-import com.mojang.serialization.Codec;
+
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -13,23 +13,12 @@ import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import net.minecraftforge.common.world.BiomeModifier;
 import net.minecraftforge.common.world.ModifiableBiomeInfo;
 
+import com.mojang.serialization.Codec;
+
 import java.util.List;
 import java.util.Set;
 
-/**
- * Strips TFC ore features from TFC biomes. Runs once per biome at datapack/registry load (REMOVE phase),
- * so chunk generation never evaluates the removed features.
- *
- * <p>Why this is enough: {@code TFCChunkGenerator#applyBiomeDecoration} reads features through
- * {@code BiomeExtension#getFlattenedFeatures}, which returns {@code biome.getGenerationSettings().features()}
- * (the list Forge biome modifiers edit).
- *
- * <p>Matching is by placed-feature id (ResourceKey) only, no tag lookup:
- * <ul>
- *   <li>{@code tfc:vein/*} (all ore veins, which also create the indicators), except ids in {@code keptFeatures};</li>
- *   <li>{@code tfc:*_deposit} and {@code tfc:*_deep_deposit} when {@code removeDeposits} is on.</li>
- * </ul>
- */
+
 public record TfcOreStripModifier() implements BiomeModifier {
 
     public static final Codec<TfcOreStripModifier> CODEC = Codec.unit(TfcOreStripModifier::new);

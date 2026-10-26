@@ -47,21 +47,16 @@ public class FlaskItem extends DiscreteFluidContainerItem {
                 canPlaceLiquidsInWorld(),
                 canPlaceSourceBlocks(),
                 true)) {
-            System.out.println("[DEBUG] transferBetweenWorldAndItem succeeded (filled/emptied)");
             return InteractionResultHolder.success(player.getItemInHand(hand));
         }
 
         final IFluidHandler handler = Helpers.getCapability(stack, Capabilities.FLUID_ITEM);
         if (handler == null) {
-            System.out.println("[DEBUG] handler is NULL — capability missing!");
             return InteractionResultHolder.pass(stack);
         }
-        System.out.println("[DEBUG] fluid in tank: " + handler.getFluidInTank(0));
         if (handler.getFluidInTank(0).isEmpty()) {
-            System.out.println("[DEBUG] tank empty -> afterFillFailed");
             return afterFillFailed(handler, level, player, stack, hand);
         } else {
-            System.out.println("[DEBUG] tank not empty -> afterEmptyFailed");
             return afterEmptyFailed(handler, level, player, stack, hand);
         }
     }
@@ -98,7 +93,6 @@ public class FlaskItem extends DiscreteFluidContainerItem {
                                                                   Player player,
                                                                   ItemStack stack,
                                                                   InteractionHand hand) {
-        System.out.println("[DEBUG] afterEmptyFailed called, shift=" + player.isShiftKeyDown());
         if (player.isShiftKeyDown()) {
             level.playSound(
                     player,
@@ -111,16 +105,13 @@ public class FlaskItem extends DiscreteFluidContainerItem {
             return InteractionResultHolder.consume(stack);
         }
         final Drinkable drinkable = Drinkable.get(handler.getFluidInTank(0).getFluid());
-        System.out.println("[DEBUG] drinkable = " + drinkable);
         if (drinkable != null) {
             if (!drinkable.mayDrinkWhenFull() && player.getFoodData() instanceof TFCFoodData food &&
                     food.getThirst() >= TFCFoodData.MAX_THIRST) {
-                System.out.println("[DEBUG] blocked: thirst full and mayDrinkWhenFull=false");
                 return InteractionResultHolder.fail(stack);
             }
             return ItemUtils.startUsingInstantly(level, player, hand);
         }
-        System.out.println("[DEBUG] drinkable is NULL -> pass, nothing happens");
         return InteractionResultHolder.pass(stack);
     }
 

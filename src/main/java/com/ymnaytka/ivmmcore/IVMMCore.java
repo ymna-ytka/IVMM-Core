@@ -80,11 +80,7 @@ public class IVMMCore {
         IVMMCoreMaterials_A.register();
     }
 
-    /**
-     * (Optional) Used to modify pre-existing materials from GregTech
-     *
-     * @param event
-     */
+
     private void modifyMaterials(PostMaterialEvent event) {
         IVMMCoreModification.modifyMaterials();
     }
@@ -95,23 +91,10 @@ public class IVMMCore {
         IVMMCoreRecipeTypes.init();
     }
 
-    /**
-     * Used to register your own new machines.
-     * Call init() from your Machine class(es) here
-     *
-     * @param event
-     */
     private void registerMachines(GTCEuAPI.RegisterEvent<ResourceLocation, MachineDefinition> event) {
         IVMMCoreMultiblock_A.init();
     }
 
-    /**
-     * Used to register your own new sounds
-     * Call init from your Sound class(es) here
-     *
-     * @param event
-     */
     public void registerSounds(GTCEuAPI.RegisterEvent<ResourceLocation, SoundEntry> event) {
-        // CustomSounds.init();
     }
 }

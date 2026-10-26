@@ -1,6 +1,7 @@
 package com.ymnaytka.ivmmcore.common.data.worldgen.tfc;
 
 import com.ymnaytka.ivmmcore.IVMMCore;
+
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTestType;
 import net.minecraftforge.registries.DeferredRegister;

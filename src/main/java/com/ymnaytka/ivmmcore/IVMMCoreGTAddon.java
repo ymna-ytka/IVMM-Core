@@ -34,15 +34,9 @@ public class IVMMCoreGTAddon implements IGTAddon {
 
     @Override
     public void registerTagPrefixes() {
-        // CustomTagPrefixes.init();
-        // Always registered: the set of blocks must not depend on a config value (saves would lose blocks).
         TfcRockOres.init();
     }
 
-    /**
-     * Lets GT's overworld layers replace TFC raw rock too. TFC has no deepslate, so both layers accept TFC rock;
-     * each vein's own Y range still decides where it spawns.
-     */
     @Override
     public void registerWorldgenLayers() {
         if (!IVMMCoreConfig.gtOresInTfc()) return;
@@ -52,12 +46,10 @@ public class IVMMCoreGTAddon implements IGTAddon {
 
     @Override
     public void addRecipes(Consumer<FinishedRecipe> provider) {
-        // CustomRecipes.init(provider);
     }
 
     @Override
     public void registerElements() {
-        // CustomElements.init();
     }
 
     @Override

@@ -7,10 +7,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * COMMON config (config/ivmmcore-common.toml). Read once per biome / per layer registration, never per tick.
- * Changing values requires a game restart.
- */
 public final class IVMMCoreConfig {
 
     public static final ForgeConfigSpec SPEC;
@@ -49,9 +45,6 @@ public final class IVMMCoreConfig {
     }
 
     private IVMMCoreConfig() {}
-
-    // COMMON config is not loaded during data generation (runData) and some very early init stages, where
-    // ConfigValue#get() throws IllegalStateException. These accessors fall back to the defaults there.
 
     public static boolean disableTfcOres() {
         return read(DISABLE_TFC_ORES, true);

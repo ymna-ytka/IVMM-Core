@@ -1,8 +1,5 @@
 package com.ymnaytka.ivmmcore.common.data.worldgen.tfc;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
-import it.unimi.dsi.fastutil.objects.ReferenceOpenHashSet;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -11,15 +8,13 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTestType;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import it.unimi.dsi.fastutil.objects.ReferenceOpenHashSet;
+
 import java.util.Set;
 
-/**
- * Matches what the wrapped test matches (vanilla stone/deepslate replaceables) OR any TFC raw rock.
- * Used as the target of GTCEu's STONE and DEEPSLATE world-gen layers so GT veins can replace TFC rock.
- *
- * <p>The rock set is resolved lazily on first use (after all registries are filled) and then cached;
- * each check afterwards is a delegate call plus one identity-set lookup.
- */
+
 public final class TfcRawRockTest extends RuleTest {
 
     public static final Codec<TfcRawRockTest> CODEC = RecordCodecBuilder.create(i -> i.group(

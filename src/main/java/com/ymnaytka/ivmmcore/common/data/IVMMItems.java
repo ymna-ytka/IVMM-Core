@@ -28,7 +28,7 @@ public class IVMMItems {
 
     public static ItemEntry<FlaskItem> FLASK_RABBIT = REGISTRATE.item("flask_rabbit",
             p -> new FlaskItem(p, () -> 1000, TFCTags.Fluids.USABLE_IN_JUG))
-            .lang("Waterskin (Rabbit)")
+            .lang("Waterskin (Small)")
             .properties(p -> p.stacksTo(1))
             .model((ctx, prov) -> {
                 var builder = prov.getBuilder(ctx.getName())
@@ -51,7 +51,7 @@ public class IVMMItems {
     // #TODO Enable the option to fill the flask with more than one bucket and make it work properly
     public static ItemEntry<FlaskItem> FLASK_SHEEP = REGISTRATE.item("flask_sheep",
             p -> new FlaskItem(p, () -> 1000, TFCTags.Fluids.USABLE_IN_JUG))
-            .lang("Waterskin (Sheep)")
+            .lang("Waterskin (Huge)")
             .properties(p -> p.stacksTo(1))
             .model((ctx, prov) -> {
                 var builder = prov.getBuilder(ctx.getName())

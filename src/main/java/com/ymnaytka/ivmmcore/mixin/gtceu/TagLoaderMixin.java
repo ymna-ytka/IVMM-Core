@@ -1,13 +1,16 @@
-package com.ymnaytka.ivmmcore.mixin;
+package com.ymnaytka.ivmmcore.mixin.gtceu;
+
+import com.ymnaytka.ivmmcore.IVMMCore;
+import com.ymnaytka.ivmmcore.common.data.worldgen.tfc.TfcRockOres;
+import com.ymnaytka.ivmmcore.config.IVMMCoreConfig;
 
 import com.gregtechceu.gtceu.common.data.GTMaterialBlocks;
-import com.ymnaytka.ivmmcore.IVMMCore;
-import com.ymnaytka.ivmmcore.config.IVMMCoreConfig;
-import com.ymnaytka.ivmmcore.common.data.worldgen.tfc.TfcRockOres;
+
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.tags.TagEntry;
 import net.minecraft.tags.TagLoader;
+
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -19,14 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Adds every {@code gtceu:tfc_<rock>_<material>_ore} block to the block tag {@code tfc:rock/ores}.
- * TFC's {@code can_start_collapse} and {@code can_trigger_collapse} reference that tag, so GT ores in TFC rock take
- * part in TFC cave-ins like TFC's own ores. Same technique as GTCEu's own TagLoaderMixin (hook at RETURN of load).
- *
- * <p>Runs once per tag reload, not per tick. Restricted to the block tag directory so the entries never reach
- * item/fluid tag loaders (an unknown element would fail the whole tag).
- */
 @Mixin(TagLoader.class)
 public abstract class TagLoaderMixin {
 
@@ -54,6 +49,5 @@ public abstract class TagLoaderMixin {
                 added++;
             }
         }
-        IVMMCore.LOGGER.debug("[IVMMCore] added {} GT rock ore blocks to #tfc:rock/ores", added);
     }
 }

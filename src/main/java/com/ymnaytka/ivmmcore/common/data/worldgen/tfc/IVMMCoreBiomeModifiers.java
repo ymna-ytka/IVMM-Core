@@ -1,11 +1,13 @@
 package com.ymnaytka.ivmmcore.common.data.worldgen.tfc;
 
 import com.ymnaytka.ivmmcore.IVMMCore;
-import com.mojang.serialization.Codec;
+
 import net.minecraftforge.common.world.BiomeModifier;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+
+import com.mojang.serialization.Codec;
 
 public final class IVMMCoreBiomeModifiers {
 
