@@ -1,5 +1,6 @@
 package com.ymnaytka.ivmmcore.common.data.materials;
 
+import com.gregtechceu.gtceu.api.fluids.FluidBuilder;
 import com.ymnaytka.ivmmcore.IVMMCore;
 
 import com.gregtechceu.gtceu.api.data.chemical.material.Material;
@@ -12,6 +13,7 @@ public class IVMMCoreMaterials_A {
 
     public static Material Sand;
     public static Material Azurite;
+    public static Material CastIron;
 
     public static void register() {
         Sand = new Material.Builder(IVMMCore.id("sand"))
@@ -26,6 +28,15 @@ public class IVMMCoreMaterials_A {
                 .formula("Cu₃(CO₃)₂(OH)₂")
                 .flags(DISABLE_DECOMPOSITION)
                 .langValue("Azurite")
+                .buildAndRegister();
+        CastIron = new Material.Builder(IVMMCore.id("cast_iron"))
+                .ingot()                                          // ingot, plate, rod и т.д. по флагам
+                .liquid(new FluidBuilder().temperature(1473))     // жидкий чугун (~1200 °C)
+                .color(0x5A5A62).secondaryColor(0x2B2B30)
+                .iconSet(MaterialIconSet.METALLIC)
+                .formula("Fe₃C")
+                .flags(DISABLE_DECOMPOSITION, GENERATE_PLATE)
+                .langValue("Cast Iron")
                 .buildAndRegister();
     }
 }
